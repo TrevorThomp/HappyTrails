@@ -1,5 +1,37 @@
 'use strict';
 
+// dotenv Configuration
+require('dotenv').config();
+
+// Application Dependencies
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const path = require('path');
+const superagent = require('superagent');
+const pg = require('pg');
+const methodOverride = require('method-override')
+const PORT = process.env.PORT || 3000;
+
+app.use(bodyParser());
+app.use(cors());
+
+// Database Connection
+const client = new pg.Client(process.env.DATABASE_URL);
+client.connect();
+client.on('err', err => console.error(err));
+
+// Middleware to handle PUT and DELETE
+app.use(methodOverride((request, response) => {
+  if (request.body && typeof request.body === 'object' && '_method' in request.body) {
+    // look in urlencoded POST bodies and delete it
+    let method = request.body._method;
+    delete request.body._method;
+    return method;
+  }
+}))
+
 function Trail(data) {
   this.id = data.id;
   this.name = data.name;
