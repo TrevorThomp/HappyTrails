@@ -49,9 +49,9 @@ app.delete('/books/:id', deleteBook);
 
 // Trail Constructor
 function Trail(data) {
-  this.id = data.id ? data.id : 'No id available';
   this.name = data.name ? data.name : 'No name available';
   this.summary = data.summary ? data.summary : 'No summary available';
+  this.trail_id = data.id;
   this.difficulty = data.difficulty ? data.difficulty : 'No difficulty available';
   this.stars = data.stars ? data.stars : '';
   this.imgSmallMed = data.imgSmallMed ? data.imgSmallMed : 'No image available';
