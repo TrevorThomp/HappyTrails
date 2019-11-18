@@ -39,20 +39,33 @@ app.set('view engine', 'ejs');
 app.get('/', (request,response) => {
   response.send('Home Page!')
 })
+app.get('/location', getLocation);
+app.get('/searches/new', newSearch);
+app.post('/searches', createSearch);
+app.post('/trails', createTrail);
+app.get('/trails/:id', getOneTrail);
+app.put('/trails/:id', updateTrail);
+app.delete('/books/:id', deleteBook);
 
 // Trail Constructor
 function Trail(data) {
-  this.id = data.id;
-  this.name = data.name;
-  this.summary = data.summary;
-  this.difficulty = data.difficulty;
-  this.stars = data.stars;
-  this.imgSmallMed = data.imgSmallMed;
+  this.id = data.id ? data.id : 'No id available';
+  this.name = data.name ? data.name : 'No name available';
+  this.summary = data.summary ? data.summary : 'No summary available';
+  this.difficulty = data.difficulty ? data.difficulty : 'No difficulty available';
+  this.stars = data.stars ? data.stars : '';
+  this.imgSmallMed = data.imgSmallMed ? data.imgSmallMed : 'No image available';
   this.latitude = data.latitude;
   this.longitude = data.longitude;
-  this.length = data.length;
-  this.conditionStatus = data.conditionStatus;
-  this.conditionDetails = data.conditionDetails;
+  this.length = data.length ? data.length : 'No length available';
+  this.conditionStatus = data.conditionStatus ? data.conditionStatus : 'No condition status available';
+  this.conditionDetails = data.conditionDetails ? data.conditionDetails : 'No condition details';
+}
+
+function Location(query, data) {
+  this.search_query = query;
+  this.latitude = data.geometry.location.lat;
+  this.longitude = data.geometry.location.lng;
 }
 
 // Application Listener
