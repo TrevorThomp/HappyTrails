@@ -8,7 +8,6 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const path = require('path');
 const superagent = require('superagent');
 const pg = require('pg');
 const methodOverride = require('method-override')
@@ -32,6 +31,16 @@ app.use(methodOverride((request, response) => {
   }
 }))
 
+// View Engine
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
+
+// API Routes
+app.get('/', (request,response) => {
+  response.send('Home Page!')
+})
+
+// Trail Constructor
 function Trail(data) {
   this.id = data.id;
   this.name = data.name;
@@ -46,4 +55,5 @@ function Trail(data) {
   this.conditionDetails = data.conditionDetails;
 }
 
-
+// Application Listener
+app.listen(PORT, console.log(`Listening on Port: ${PORT}`))
