@@ -62,5 +62,11 @@ function Trail(data) {
   this.conditionDetails = data.conditionDetails ? data.conditionDetails : 'No condition details';
 }
 
+function Location(query, data) {
+  this.search_query = query;
+  this.latitude = data.geometry.location.lat;
+  this.longitude = data.geometry.location.lng;
+}
+
 // Application Listener
 app.listen(PORT, console.log(`Listening on Port: ${PORT}`))
