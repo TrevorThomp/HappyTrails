@@ -5,6 +5,27 @@
 
 /* NAV MENU */
 
+body {
+  margin: 0;
+  padding: 0;
+  background: #d6d6d6;
+  color: #222222;
+  font-family: "Avenir Next", "Avenir", sans-serif;
+  overflow-x: hidden;
+  margin-bottom: 75px; 
+  height: 100vh;
+
+  /* display: grid;
+  grid-template-areas: 
+    "header header header"
+    "aside map map"
+    "footer footer footer";
+  grid-template-rows: 80px 1fr 70px;  
+  grid-template-columns: 25% 1fr;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px; */
+}
+
 a {
   text-decoration: none;
   color: #232323;
