@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <%- include('partials/head') %>
 </head>
-<header>Trailz</header>
 <body>
+
+<header>Trailz</header>
+
+
+<main>
   <h2>Find Trails</h2>
   <section id="searchCont">
     <form id="search-form" action="/location" method="post">
@@ -18,5 +19,12 @@
       <button class="lng-btn" type="submit">Find trails</button>
   </section>
 </form>
+</main>
+
+  <footer>
+    <%- include('partials/footer') %>
+  </footer>
+
+  
 </body>
 </html>

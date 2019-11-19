@@ -40,7 +40,10 @@ app.set('view engine', 'ejs');
 app.get('/', (request,response) => {
   response.render('index')
 })
+
 app.get('/location', getLocation);
+app.get('/trailList', trailListHandler);
+app.get('/mapMaker', mapMakerHandler);
 app.get('/about', aboutHandler);
 // app.get('/searches/new', newSearch);
 // app.post('/searches', createSearch);
@@ -48,6 +51,8 @@ app.get('/about', aboutHandler);
 // app.get('/trails/:id', getOneTrail);
 // app.put('/trails/:id', updateTrail);
 // app.delete('/trails/:id', deleteTrail);
+app.get('/favorites', getTrails);
+
 
 // Trail Constructor
 function Trail(data) {
@@ -75,29 +80,85 @@ function Location(query, data) {
   this.longitude = data.geometry.location.lng;
 }
 
-function getLocation(req,res){
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
-  superagent.get(url)
-    .then( result => {
-      const lat = result.body.results[0].geometry.location.lat;
-      const long = result.body.results[0].geometry.location.lng;
-      const hikeURL = `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${long}&maxDistance=10&maxResults=10&key=${process.env.HIKING_PROJECT_API_KEY}`;
-      return superagent.get(hikeURL);
-    })
-    .then(data => {
-      console.log(data.body);
-      let moddedData = data.body.trails.map( trailLocation => ({latitude: trailLocation.latitude, longitude: trailLocation.longitude}));
-      let staticMapURL = 'https://maps.googleapis.com/maps/api/staticmap?size=1000x1000&maptype=terrain&markers=color:green|';
-      moddedData.forEach( parsedLoc => {
-        if (moddedData.indexOf(parsedLoc) + 1 !== moddedData.length) staticMapURL += parsedLoc.latitude.toString() + ',' + parsedLoc.longitude.toString() + '|';
-        else {
-          staticMapURL += parsedLoc.latitude.toString() + ',' + parsedLoc.longitude.toString() + `&key=${process.env.GEOCODE_API_KEY}`;
-        }
-      })
-      console.log('URL',staticMapURL);
+//Helper Functions
+function makeTrails(latitude,longitude){
+  const hikeURL = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&maxDistance=10&maxResults=20&key=${process.env.HIKING_PROJECT_API_KEY}`;
+  return superagent.get(hikeURL)
+    .then( hikeAPICallResult => {
+      return hikeAPICallResult.body;
     })
     .catch(error => console.error(error));
 }
+
+function getTrailMarkers(trailAPIResponse){
+  let moddedData = trailAPIResponse.map( trail => ({latitude: trail.latitude.toString(), longitude: trail.longitude.toString()}));
+  console.log('moddedData',moddedData);
+  return moddedData;
+}
+
+
+// Middleware
+function getLocation(req,res){
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
+  return superagent.get(url)
+    .then( result => {
+      return new Location (req.query.location, result.body.results[0]);
+    })
+    .then( location => {
+      res.redirect(`/trailList?latitude=${location.latitude}&longitude=${location.longitude}`);
+    })
+    .catch(error => console.error(error));
+}
+
+
+function trailListHandler(req, res){
+  makeTrails(req.query.latitude,req.query.longitude)
+    .then( listOfTrails => {
+      return getTrailMarkers(listOfTrails.trails);
+    })
+    .then( url => {
+      res.redirect(`/mapMaker?url=${JSON.stringify(url)}&location=${req.query.latitude},${req.query.longitude}`);
+    })
+    .catch(err => console.error(err));
+}
+
+function mapMakerHandler(req,res){
+  let staticMapURL = 'https://maps.googleapis.com/maps/api/staticmap?size=1000x1000&maptype=terrain&markers=color:green|';
+  console.log('requrl',req.query.url);
+  let parsed = JSON.parse(req.query.url);
+  parsed.forEach( trailObj => {
+    if (parsed.indexOf(trailObj) + 1 !== parsed.length) staticMapURL += trailObj.latitude.toString() + ',' + trailObj.longitude.toString() + '|';
+    else {
+      staticMapURL += trailObj.latitude.toString() + ',' + trailObj.longitude.toString() + `&key=${process.env.GEOCODE_API_KEY}`;
+    }
+  })
+  console.log('end of chain');
+  let answer = {url: staticMapURL, location: req.query.location, trailList: parsed};
+  res.send(answer) ;
+
+function deleteTrail(request,response){
+  let SQL = 'DELETE FROM trail where id = $1';
+  let value = [request.params.id];
+  return client.query(SQL, value)
+    .then(response.redirect('/'))
+    .catch(err => handleError(err, response));
+}
+
+function getTrails(request, response){
+  let SQL = 'SELECT * FROM trial';
+  return client.query(SQL)
+    .then(response.redirect('/favorites'))
+    .catch(err = handleError(err, response));
+}
+
+function updateTrail(request,response){
+  let SQL = 'UPDATE TABLE trail SET $2 = $3 WHERE id = $1';
+  let values = [request.params.id, request.params.column, request.params.new_value];//replace column with fieldname and new_value with unput value from user/form
+  return client.query(SQL, values)
+    .then(response.redirect(`/trails/${request.params.id}`))
+    .catch(err => handleError(err, response));
+}
+
 // Error Handler
 function handleError(error,response) {
   response.render('error', {error: error})
@@ -107,8 +168,6 @@ function handleError(error,response) {
 function aboutHandler(request,response) {
   response.render('pages/about');
 }
-
-
 
 // Application Listener
 app.listen(PORT, console.log(`Listening on Port: ${PORT}`))
