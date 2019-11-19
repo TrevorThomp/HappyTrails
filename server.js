@@ -46,7 +46,7 @@ app.post('/searches', createSearch);
 app.post('/trails', createTrail);
 app.get('/trails/:id', getOneTrail);
 app.put('/trails/:id', updateTrail);
-app.delete('/books/:id', deleteBook);
+app.delete('/books/:id', deleteTrail);
 
 // Trail Constructor
 function Trail(data) {
@@ -75,12 +75,15 @@ function Location(query, data) {
 
 // Error Handler
 function handleError(error,response) {
-  response.render('error', { error: error })
+  response.render('error', {error: error})
 }
 
+// About Us Page
 function aboutHandler(request,response) {
   response.render('pages/about');
 }
+
+
 
 // Application Listener
 app.listen(PORT, console.log(`Listening on Port: ${PORT}`))
