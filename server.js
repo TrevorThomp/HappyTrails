@@ -38,18 +38,21 @@ app.set('view engine', 'ejs');
 
 // API Routes
 app.get('/', (request,response) => {
-  response.send('Home Page!')
+  response.render('index')
 })
 
 app.get('/location', getLocation);
 app.get('/trailList', trailListHandler);
 app.get('/mapMaker', mapMakerHandler);
+app.get('/about', aboutHandler);
 // app.get('/searches/new', newSearch);
 // app.post('/searches', createSearch);
 // app.post('/trails', createTrail);
 // app.get('/trails/:id', getOneTrail);
 // app.put('/trails/:id', updateTrail);
-// app.delete('/books/:id', deleteBook);
+// app.delete('/trails/:id', deleteTrail);
+app.get('/favorites', getTrails);
+
 
 // Trail Constructor
 function Trail(data) {
@@ -94,7 +97,6 @@ function getTrailMarkers(trailAPIResponse){
 }
 
 
-
 // Middleware
 function getLocation(req,res){
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
@@ -107,6 +109,7 @@ function getLocation(req,res){
     })
     .catch(error => console.error(error));
 }
+
 
 function trailListHandler(req, res){
   makeTrails(req.query.latitude,req.query.longitude)
@@ -132,6 +135,28 @@ function mapMakerHandler(req,res){
   console.log('end of chain');
   let answer = {url: staticMapURL, location: req.query.location, trailList: parsed};
   res.send(answer) ;
+
+function deleteTrail(request,response){
+  let SQL = 'DELETE FROM trail where id = $1';
+  let value = [request.params.id];
+  return client.query(SQL, value)
+    .then(response.redirect('/'))
+    .catch(err => handleError(err, response));
+}
+
+function getTrails(request, response){
+  let SQL = 'SELECT * FROM trial';
+  return client.query(SQL)
+    .then(response.redirect('/favorites'))
+    .catch(err = handleError(err, response));
+}
+
+function updateTrail(request,response){
+  let SQL = 'UPDATE TABLE trail SET $2 = $3 WHERE id = $1';
+  let values = [request.params.id, request.params.column, request.params.new_value];//replace column with fieldname and new_value with unput value from user/form
+  return client.query(SQL, values)
+    .then(response.redirect(`/trails/${request.params.id}`))
+    .catch(err => handleError(err, response));
 }
 
 // Error Handler
@@ -143,8 +168,6 @@ function handleError(error,response) {
 function aboutHandler(request,response) {
   response.render('pages/about');
 }
-
-
 
 // Application Listener
 app.listen(PORT, console.log(`Listening on Port: ${PORT}`))
