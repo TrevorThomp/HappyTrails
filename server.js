@@ -48,6 +48,7 @@ app.get('/about', aboutHandler);
 // app.get('/trails/:id', getOneTrail);
 // app.put('/trails/:id', updateTrail);
 // app.delete('/trails/:id', deleteTrail);
+app.get('/favorites', getTrails);
 
 // Trail Constructor
 function Trail(data) {
@@ -110,6 +111,13 @@ function deleteTrail(request,response){
 // <form method="post" action="/ideas/{{id}}?_method=DELETE">
 // <input type="hidden" name="_method" value="DELETE">
 // </form>
+}
+
+function getTrails(request, response){
+  let SQL = 'SELECT * FROM trial';
+  return client.query(SQL)
+    .then(response.redirect('/favorites'))
+    .catch(err = handleError(err, response));
 }
 
 function updateTrail(request,response){
