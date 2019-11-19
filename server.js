@@ -40,6 +40,7 @@ app.get('/', (request,response) => {
   response.send('Home Page!')
 })
 app.get('/location', getLocation);
+app.get('/about', aboutHandler);
 app.get('/searches/new', newSearch);
 app.post('/searches', createSearch);
 app.post('/trails', createTrail);
