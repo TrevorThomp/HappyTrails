@@ -49,12 +49,15 @@ app.delete('/books/:id', deleteBook);
 
 // Trail Constructor
 function Trail(data) {
+  const placeholder = 'https://i.imgur.com/iaV1Lp0.jpg';
+  let httpRegex = /^(http:\/\/)/g
+
   this.name = data.name ? data.name : 'No name available';
   this.summary = data.summary ? data.summary : 'No summary available';
   this.trail_id = data.id;
   this.difficulty = data.difficulty ? data.difficulty : 'No difficulty available';
   this.stars = data.stars ? data.stars : '';
-  this.imgSmallMed = data.imgSmallMed ? data.imgSmallMed : 'No image available';
+  this.imgSmallMed = data.imgSmallMed ? data.imgSmallMed.replace(httpRegex, 'https://') : placeholder;
   this.latitude = data.latitude;
   this.longitude = data.longitude;
   this.length = data.length ? data.length : 'No length available';
