@@ -32,21 +32,21 @@ app.use(methodOverride((request, response) => {
 }))
 
 // View Engine
-app.use(express.static('public'));
+app.use('/public', express.static('public'));
 app.set('view engine', 'ejs');
 
 // API Routes
 app.get('/', (request,response) => {
   response.send('Home Page!')
 })
-app.get('/location', getLocation);
+// app.get('/location', getLocation);
 app.get('/about', aboutHandler);
-app.get('/searches/new', newSearch);
-app.post('/searches', createSearch);
-app.post('/trails', createTrail);
-app.get('/trails/:id', getOneTrail);
-app.put('/trails/:id', updateTrail);
-app.delete('/books/:id', deleteBook);
+// app.get('/searches/new', newSearch);
+// app.post('/searches', createSearch);
+// app.post('/trails', createTrail);
+// app.get('/trails/:id', getOneTrail);
+// app.put('/trails/:id', updateTrail);
+// app.delete('/books/:id', deleteBook);
 
 // Trail Constructor
 function Trail(data) {
@@ -79,7 +79,7 @@ function handleError(error,response) {
 }
 
 function aboutHandler(request,response) {
-  response.status(200).send('pages/about');
+  response.render('pages/about');
 }
 
 // Application Listener
