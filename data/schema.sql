@@ -31,14 +31,16 @@ INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitu
 4.2,'https://cdn-files.apstatic.com/hike/7007179_sqsmall_1554322332.jpg',44.0818,-121.3784,4.8,'Unknown',
 'null');
 
--- INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('Deschutes River Hiking Trail',
---     'Needs Summary',7073493,'green',
--- 5,'https://cdn-files.apstatic.com/hike/7056730_sqsmall_1555945367.jpg',44.0221,-121.3633,14.5,'All Clear',
--- 'Mostly Dry, Some Mud';
--- 'Tiddlywinks Lower',
---     'An easy climb connecting to other trails.',7035581,'blueBlack',
--- 5,'https://cdn-files.apstatic.com/hike/7035792_sqsmall_1555020892.jpg',43.9783,-121.4684,4.1,'Unknown',
--- 'null');
+INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('Deschutes River Hiking Trail',
+    'Needs Summary',7073493,'green',
+5,'https://cdn-files.apstatic.com/hike/7056730_sqsmall_1555945367.jpg',44.0221,-121.3633,14.5,'All Clear',
+'Mostly Dry, Some Mud');
+
+INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES (
+'Tiddlywinks Lower',
+    'An easy climb connecting to other trails.',7035581,'blueBlack',
+5,'https://cdn-files.apstatic.com/hike/7035792_sqsmall_1555020892.jpg',43.9783,-121.4684,4.1,'Unknown',
+'null');
 
 INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('Pilot Butte Trail',
     'A steep, short climb with great views.',7005256,'greenBlue',
@@ -66,14 +68,14 @@ INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitu
 4,'',43.7432,-121.2381,25,'Unknown',
 'null');
 
--- INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES (
--- 'Kent's Trail',
---     'Pines, manzanitas and a smooth trail. Gotta love it.',7037181,'greenBlue',
--- 4,'',44.0434,-121.386,4.1,'Unknown',
--- 'null');
+INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES (
+'Kent''s Trail',
+    'Pines, manzanitas and a smooth trail. Gotta love it.',7037181,'greenBlue',
+4,'',44.0434,-121.386,4.1,'Unknown',
+'null');
 
--- INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('KGB Trail',
---     'A beautiful trail in Phil's trail system with nice views and some rugged sections.',7037190,'blue',
--- 4,'https://cdn-files.apstatic.com/hike/7037281_sqsmall_1555085648.jpg',44.0295,-121.3754,4.1,'Unknown',
--- 'null');
+INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('KGB Trail',
+    'A beautiful trail in Phil''s trail system with nice views and some rugged sections.',7037190,'blue',
+4,'https://cdn-files.apstatic.com/hike/7037281_sqsmall_1555085648.jpg',44.0295,-121.3754,4.1,'Unknown',
+'null');
 
