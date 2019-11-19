@@ -33,7 +33,7 @@ app.use(methodOverride((request, response) => {
 }))
 
 // View Engine
-app.use(express.static('public'));
+app.use('/public', express.static('public'));
 app.set('view engine', 'ejs');
 
 // API Routes
@@ -41,22 +41,25 @@ app.get('/', (request,response) => {
   response.send('Home Page!')
 })
 app.get('/location', getLocation);
-//Initiated by the form, take values from form and return lat/long
-// app.get('/searches/new', newSearch);
-// app.post('/searches', createSearch);
-// app.post('/trails', createTrail);
-// app.get('/trails/:id', getOneTrail);
-// app.put('/trails/:id', updateTrail);
-// app.delete('/books/:id', deleteBook);
+app.get('/about', aboutHandler);
+app.get('/searches/new', newSearch);
+app.post('/searches', createSearch);
+app.post('/trails', createTrail);
+app.get('/trails/:id', getOneTrail);
+app.put('/trails/:id', updateTrail);
+app.delete('/trails/:id', deleteTrail);
 
 // Trail Constructor
 function Trail(data) {
+  const placeholder = 'https://i.imgur.com/iaV1Lp0.jpg';
+  let httpRegex = /^(http:\/\/)/g
+
   this.name = data.name ? data.name : 'No name available';
   this.summary = data.summary ? data.summary : 'No summary available';
   this.trail_id = data.id;
   this.difficulty = data.difficulty ? data.difficulty : 'No difficulty available';
   this.stars = data.stars ? data.stars : '';
-  this.imgSmallMed = data.imgSmallMed ? data.imgSmallMed : 'No image available';
+  this.imgSmallMed = data.imgSmallMed ? data.imgSmallMed.replace(httpRegex, 'https://') : placeholder;
   this.latitude = data.latitude;
   this.longitude = data.longitude;
   // TODO:// Is length going to work here as a property name or do we need to use bracket notation because of keyword overlap?
@@ -65,6 +68,7 @@ function Trail(data) {
   this.conditionDetails = data.conditionDetails ? data.conditionDetails : 'No condition details';
 }
 
+// Location Constructor
 function Location(query, data) {
   this.search_query = query;
   this.latitude = data.geometry.location.lat;
@@ -96,8 +100,15 @@ function getLocation(req,res){
 }
 // Error Handler
 function handleError(error,response) {
-  response.render('error', { error: error })
+  response.render('error', {error: error})
 }
+
+// About Us Page
+function aboutHandler(request,response) {
+  response.render('pages/about');
+}
+
+
 
 // Application Listener
 app.listen(PORT, console.log(`Listening on Port: ${PORT}`))
