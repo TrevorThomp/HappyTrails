@@ -7,13 +7,14 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const superagent = require('superagent');
 const pg = require('pg');
 const methodOverride = require('method-override')
 const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser());
+
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Database Connection
@@ -46,7 +47,7 @@ app.post('/searches', createSearch);
 app.post('/trails', createTrail);
 app.get('/trails/:id', getOneTrail);
 app.put('/trails/:id', updateTrail);
-app.delete('/books/:id', deleteTrail);
+app.delete('/trails/:id', deleteTrail);
 
 // Trail Constructor
 function Trail(data) {
@@ -61,6 +62,7 @@ function Trail(data) {
   this.imgSmallMed = data.imgSmallMed ? data.imgSmallMed.replace(httpRegex, 'https://') : placeholder;
   this.latitude = data.latitude;
   this.longitude = data.longitude;
+  // TODO:// Is length going to work here as a property name or do we need to use bracket notation because of keyword overlap?
   this.length = data.length ? data.length : 'No length available';
   this.conditionStatus = data.conditionStatus ? data.conditionStatus : 'No condition status available';
   this.conditionDetails = data.conditionDetails ? data.conditionDetails : 'No condition details';
@@ -73,6 +75,29 @@ function Location(query, data) {
   this.longitude = data.geometry.location.lng;
 }
 
+function getLocation(req,res){
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
+  superagent.get(url)
+    .then( result => {
+      const lat = result.body.results[0].geometry.location.lat;
+      const long = result.body.results[0].geometry.location.lng;
+      const hikeURL = `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${long}&maxDistance=10&maxResults=10&key=${process.env.HIKING_PROJECT_API_KEY}`;
+      return superagent.get(hikeURL);
+    })
+    .then(data => {
+      console.log(data.body);
+      let moddedData = data.body.trails.map( trailLocation => ({latitude: trailLocation.latitude, longitude: trailLocation.longitude}));
+      let staticMapURL = 'https://maps.googleapis.com/maps/api/staticmap?size=1000x1000&maptype=terrain&markers=color:green|';
+      moddedData.forEach( parsedLoc => {
+        if (moddedData.indexOf(parsedLoc) + 1 !== moddedData.length) staticMapURL += parsedLoc.latitude.toString() + ',' + parsedLoc.longitude.toString() + '|';
+        else {
+          staticMapURL += parsedLoc.latitude.toString() + ',' + parsedLoc.longitude.toString() + `&key=${process.env.GEOCODE_API_KEY}`;
+        }
+      })
+      console.log('URL',staticMapURL);
+    })
+    .catch(error => console.error(error));
+}
 // Error Handler
 function handleError(error,response) {
   response.render('error', {error: error})
