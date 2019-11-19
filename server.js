@@ -100,20 +100,15 @@ function getLocation(req,res){
 }
 
 function deleteTrail(request,response){
-  let SQL = 'DELETE FROM trial where id = $1';
+  let SQL = 'DELETE FROM trail where id = $1';
   let value = [request.params.id];
   return client.query(SQL, value)
     .then(response.redirect('/'))
     .catch(err => handleError(err, response));
-
-//Query override using HTML form. The following is for "delete".
-// <form method="post" action="/ideas/{{id}}?_method=DELETE">
-// <input type="hidden" name="_method" value="DELETE">
-// </form>
 }
 
 function updateTrail(request,response){
-  let SQL = 'UPDATE TABLE trial SET $2 = $3 WHERE id = $1';
+  let SQL = 'UPDATE TABLE trail SET $2 = $3 WHERE id = $1';
   let values = [request.params.id, request.params.column, request.params.new_value];//replace column with fieldname and new_value with unput value from user/form
   return client.query(SQL, values)
     .then(response.redirect(`/trails/${request.params.id}`))
@@ -134,8 +129,6 @@ function handleError(error,response) {
 function aboutHandler(request,response) {
   response.render('pages/about');
 }
-
-
 
 // Application Listener
 app.listen(PORT, console.log(`Listening on Port: ${PORT}`))

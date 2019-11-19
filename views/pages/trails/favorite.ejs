@@ -14,6 +14,46 @@
   <main>
 <h1>Favorites</h1>
 <p>Form header</p>
+<section>
+    <div class="favorite-lt">
+      <section>
+        <h3><%= trailsData.name %></h3>
+        <label for="name">Enter trail name: </label>
+        <input type="text" name="name" id="name" required value> <%= trailsData.name %>
+        <label for="summary">Enter trail summary: </label>
+        <input type="text" name="summary" id="summary"> <%= trailsData.summary %>
+        <label for="difficulty">Enter trail difficulty: </label>
+        <input type="number" name="difficulty" id="difficulty" min="0" max="5" step="0.1"> <%= trailsData.difficulty %>  
+        <label for="conditionDetails">Enter condition Details: </label>
+        <input type="text" name="conditionDetails" id="conditionDetails"><%= trailsData.conditionDetails %>     
+      </section>
+
+
+  <div>
+    <form method="post" action="/favorites/<%= trail.id %>?_method=DELETE">
+    <input type="hidden" name="_method" value='DELETE'>
+    </form>
+  </div>
+
+  <form id="<%= formAction %>-form" action="<%= 'update' === formAction ? `/trail/${result.id}` : 'add' %>" method="post">
+    <input type="hidden" name="_method" value="<%= 'update' === formAction ? 'put' : 'post' %>">
+    <label for="name">Enter trail name: </label>
+    <input type="text" name="name" id="name"  value="<%= trailsData.name %>"" required>
+    <label for="summary">Enter trail summary: </label>
+    <input type="text" name="summary" id="summary" value="<%= trailsData.summary %>"" required>
+    <label for="difficulty">Enter trail difficulty: </label>
+    <input type="number" name="difficulty" id="difficulty" min="0" max="5" step="0.1" value="<%= trailsData.difficulty %>" required>
+    <label for="conditionDetails">Enter condition Details: </label>
+    <input type="text" name="conditionDetails" id="conditionDetails" value="<%= trailsData.conditionDetails %>" required>   
+
+    <button type="submit" class="add-button">Update Trail</button>
+  </form>
+
+  <div>
+    <button ><a href="/">Home</a></button>
+  </div>
+
+</section>
   </main>
   <footer>
     <% include ../partials/footer %>
