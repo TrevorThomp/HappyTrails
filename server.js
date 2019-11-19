@@ -68,5 +68,10 @@ function Location(query, data) {
   this.longitude = data.geometry.location.lng;
 }
 
+// Error Handler
+function handleError(error,response) {
+  response.render('error', { error: error })
+}
+
 // Application Listener
 app.listen(PORT, console.log(`Listening on Port: ${PORT}`))
