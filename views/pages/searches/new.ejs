@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+  </head>
+  <body>
+
+<h4 class="view-title">Search for Trails</h4>
+<h1>Find Trails</h1>
+  <section id="searchCont">
+    <form id="searchTrails-form" action="/searches" method="post">
+        <input class="trailsInput" type="text" name="search" placeholder="Enter a location" required>
+          <p>Within:</p>
+        <input class="trailsInput" type="number" name="quantity" min="0" max="20" placeholder="miles" required>
+
+      <button class="lng-btn" type="submit">Find trails</button>
+  </section>
+</form>
+
+</body>
+</html>
