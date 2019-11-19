@@ -66,6 +66,7 @@ function Trail(data) {
   this.conditionDetails = data.conditionDetails ? data.conditionDetails : 'No condition details';
 }
 
+// Location Constructor
 function Location(query, data) {
   this.search_query = query;
   this.latitude = data.geometry.location.lat;
@@ -75,6 +76,10 @@ function Location(query, data) {
 // Error Handler
 function handleError(error,response) {
   response.render('error', { error: error })
+}
+
+function aboutHandler(request,response) {
+  response.status(200).send('pages/about');
 }
 
 // Application Listener
