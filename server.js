@@ -43,7 +43,7 @@ app.get('/', (request,response) => {
 app.get('/location', getLocation);
 // app.get('/searches/new', newSearch);
 // app.post('/searches', createSearch);
-// app.post('/trails', createTrail);
+app.post('/trails', saveTrail);
 // app.get('/trails/:id', getOneTrail);
 // app.put('/trails/:id', updateTrail);
 // app.delete('/trails/:id', deleteTrail);
@@ -91,7 +91,7 @@ Location.lookup = (handler) => {
 }
 
 Trail.prototype.save = function(){
-  const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) WHERE $3 NOT IN (SELECT trail_id FROM trail) RETURNING *';
+  const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *';
   let values = Object.values(this);
   return client.query(SQL, values)
   .then(res => {
@@ -116,16 +116,7 @@ function makeList(latitude,longitude,maxDistance,endpoint){
   const hikeURL = `https://www.hikingproject.com/data/${endpoint}?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=10&key=${process.env.HIKING_PROJECT_API_KEY}`;
   return superagent.get(hikeURL)
     .then( hikeAPICallResult => {
-      if(endpoint === 'get-trails') return hikeAPICallResult.body.trails.map(trailObject => {
-        let newTrail = new Trail(trailObject);
-  
-        newTrail.save()
-        .then(result => {
-         console.log('this is newTrail result', result);
-         return result;
-        })
-        return newTrail;
-      })
+      if(endpoint === 'get-trails') return hikeAPICallResult.body.trails.map(trailObject => new Trail(trailObject));
       else return hikeAPICallResult.body.campgrounds.map(campgroundObject => new Campground(campgroundObject));
     })
     .catch(err => console.error(err));
@@ -165,6 +156,10 @@ function getLocation(req,res){
       res.render('pages/results', {data: everythingYouCouldEverWant});
     })
     .catch(err => console.error(err));
+}
+
+function saveTrail(req, res) {
+  console.log(req.body);
 }
 
 function getLocationObjectForm(req, res){
