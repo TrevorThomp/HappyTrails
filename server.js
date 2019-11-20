@@ -60,7 +60,7 @@ function Trail(data) {
   this.trail_id = data.id;
   this.difficulty = data.difficulty ? data.difficulty : 'No difficulty available';
   this.stars = data.stars ? data.stars : '';
-  this.imgSmallMed = data.imgSmallMed ? data.imgSmallMed.replace(httpRegex, 'https://') : placeholder;
+  this.imgURL = data.imgSmallMed ? data.imgSmallMed.replace(httpRegex, 'https://') : placeholder;
   this.latitude = data.latitude;
   this.longitude = data.longitude;
   this.length = data.length ? data.length : 'No length available';
@@ -109,13 +109,13 @@ function Campground(data){
 }
 //Helper Functions
 function makeList(latitude,longitude,maxDistance,endpoint){
-  const hikeURL = `https://www.hikingproject.com/data/${endpoint}?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=20&key=${process.env.HIKING_PROJECT_API_KEY}`;
+  const hikeURL = `https://www.hikingproject.com/data/${endpoint}?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=10&key=${process.env.HIKING_PROJECT_API_KEY}`;
   return superagent.get(hikeURL)
     .then( hikeAPICallResult => {
       if(endpoint === 'get-trails') return hikeAPICallResult.body.trails.map(trailObject => new Trail(trailObject));
       else return hikeAPICallResult.body.campgrounds.map(campgroundObject => new Campground(campgroundObject));
     })
-    .catch(error => console.error(error));
+    .catch(err => console.error(err));
 }
 
 function mapMaker(list){
@@ -138,16 +138,18 @@ function getLocation(req,res){
     })
     .then( location => {
       everythingYouCouldEverWant.location = location;
+      // console.log(everythingYouCouldEverWant)
       return makeList(location.latitude, location.longitude, req.query.maxMiles, req.query.endpoint);
     })
     .then( list => {
+      console.log(list)
       everythingYouCouldEverWant.list = list;
       return mapMaker(list);
     })
     .then(staticMapURL => {
       everythingYouCouldEverWant.staticMapURL = staticMapURL;
-      res.send(everythingYouCouldEverWant);
-      // res.render('pages/results', {data: everythingYouCouldEverWant});
+      // res.send(everythingYouCouldEverWant);
+      res.render('pages/results', {data: everythingYouCouldEverWant});
     })
     .catch(err => console.error(err));
 }
@@ -160,7 +162,6 @@ function getLocationObjectForm(req, res){
       console.log('Got data from DB');
       res.send(results.rows[0]);
     },
-
     cacheMiss: () => {
       console.log('No data in DB, fetching...');
       Location.getLocation(req.query.data)
@@ -168,12 +169,15 @@ function getLocationObjectForm(req, res){
     }
   };
   Location.lookup(locationHandler);
+  return client.query(SQL, values)
+    .then(response.redirect(`/trails/${request.params.id}`))
+    .catch(err => console.error(err));
 }
 
 // Error Handler
-function handleError(error,response) {
-  response.render('error', {error: error})
-}
+// function handleError(error,response) {
+//   response.render('error', {error: error})
+// }
 
 // About Us Page
 function aboutHandler(request,response) {
