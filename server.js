@@ -92,12 +92,11 @@ Location.lookup = (handler) => {
     .catch(console.error);
 }
 
-Trail.prototype.save = function(res){
+Trail.prototype.save = function(){
   const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *';
   let values = Object.values(this);
-  return client.query(SQL, values)
-  .then(res.redirect('/favorites'));
-  }
+  return client.query(SQL, values);
+}
 
 
 function Campground(data){
@@ -161,37 +160,12 @@ function getLocation(req,res){
 function saveTrail(req, res) {
   console.log(req.body);
   let trailDetails = new Trail(JSON.parse(req.body.object));
-  trailDetails.save(res);
- 
-}
-
-function getLocationObjectForm(req, res){
-  const locationHandler = {
-    query: req.query.data,
-
-    cacheHit: (results) => {
-      console.log('Got data from DB');
-      res.send(results.rows[0]);
-    },
-    cacheMiss: () => {
-      console.log('No data in DB, fetching...');
-      Location.getLocation(req.query.data)
-        .then( data => res.send(data));
-    }
-  };
-  Location.lookup(locationHandler);
-  return client.query(SQL, values)
-    .then(response.redirect(`/trails/${request.params.id}`))
-    .catch(err => console.error(err));
-}
-
-function saveTrail(request,response) {
-  console.log(request.body)
+  trailDetails.save()
+    .then(res.redirect('/favorites'));
 }
 
 function getTrails(request, response){
   let SQL = 'SELECT * FROM trail';
-
   return client.query(SQL)
     .then( results => response.render('pages/favorite', {trails: results.rows}))
     .catch(err =>handleError(err,response));
