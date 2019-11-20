@@ -75,12 +75,26 @@ function Location(query, data) {
   this.longitude = data.geometry.location.lng;
 }
 
+function Campground(data){
+  this.id = data.id;
+  this.name = data.name;
+  this.isBookable = data.isBookable;
+  this.location = data.location;
+  this.latitude = data.latitude;
+  this.longitude = data.longitude;
+  this.url = data.url;
+  this.imgUrl = data.imgUrl;
+  this.numCampsites = data.numCampsites;
+}
 //Helper Functions
-function makeTrailsList(latitude,longitude,maxDistance){
-  const hikeURL = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=20&key=${process.env.HIKING_PROJECT_API_KEY}`;
+function makeTrailsList(latitude,longitude,maxDistance,endpoint){
+  console.log('look',endpoint);
+  const hikeURL = `https://www.hikingproject.com/data/${endpoint}?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=20&key=${process.env.HIKING_PROJECT_API_KEY}`;
+  console.log('url', hikeURL);
   return superagent.get(hikeURL)
     .then( hikeAPICallResult => {
-      return hikeAPICallResult.body.trails.map( trailObject => new Trail(trailObject));
+      if(endpoint === 'get-trails') return hikeAPICallResult.body.trails.map(trailObject => new Trail(trailObject));
+      else return hikeAPICallResult.body.campgrounds.map( campgroundObject => new Campground(campgroundObject));
     })
     .catch(error => console.error(error));
 }
@@ -104,7 +118,7 @@ function getLocation(req,res){
     })
     .then( location => {
       everythingYouCouldEverWant.location = location;
-      return makeTrailsList(location.latitude, location.longitude, req.query.maxMiles);
+      return makeTrailsList(location.latitude, location.longitude, req.query.maxMiles, req.query.endpoint);
     })
     .then( trailsList => {
       everythingYouCouldEverWant.trailsList = trailsList;

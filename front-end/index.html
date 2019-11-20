@@ -8,9 +8,13 @@
 <body>
 
   <form id="search-form" class="hide" action="http://localhost:3000/location">
-    <label for="search">Search for a location</label>
+    <label for="input-search">Search for a location</label>
     <input type="text" name="data" id="input-search" placeholder="Enter a location here" required="true">
-    <input type="number" name="maxDistance" id="input-number" required="true">
+    <input type="number" name="maxMiles" id="input-number" required="true">
+    <label for="trails-radio">Trails</label>
+    <input type="radio" name="endpoint" id="trails-radio" value="get-trails">
+    <label for="campgrounds-radio">Campgrounds</label>
+    <input type="radio" name="endpoint" id="campgrounds-radio" value="get-campgrounds">
     <button type="submit" id="button-submit">Explore!</button>
   </form>
 
