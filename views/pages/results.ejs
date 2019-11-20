@@ -28,9 +28,7 @@
             
             <section class="hide-me" id="hidden-form">
             <form action="/trails" method="post" class="form-container">
-            <input type="text" name="description" value="<%= item.summary %>" required>
-            <input type="text" name="length" value="<%= item.length %>" required>
-            <input type="text" name="difficulty" value="<%= item.difficulty.charAt(0).toUpperCase() + item.difficulty.slice(1) %>" required>
+            <input type='text' name='object' value='<%= JSON.stringify(item) %>' hidden='true'>
             <button type="submit" class="detail-button add-button">Add to Favorites</button>
         </form>
       </section>

@@ -160,6 +160,9 @@ function getLocation(req,res){
 
 function saveTrail(req, res) {
   console.log(req.body);
+  let trailDetails = new Trail(JSON.parse(req.body.object));
+  trailDetails.save();
+  res.render('./pages/favorite', {trail: trailDetails});
 }
 
 function getLocationObjectForm(req, res){
