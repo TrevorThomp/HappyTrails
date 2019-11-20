@@ -51,7 +51,7 @@ app.get('/about', aboutHandler);
 // app.get('/trails/:id', getOneTrail);
 // app.put('/trails/:id', updateTrail);
 // app.delete('/trails/:id', deleteTrail);
-app.get('/favorites', getTrails);
+app.get('/favorite', getTrails);
 
 
 // Trail Constructor
@@ -134,7 +134,8 @@ function mapMakerHandler(req,res){
   })
   console.log('end of chain');
   let answer = {url: staticMapURL, location: req.query.location, trailList: parsed};
-  res.send(answer) ;
+  res.send(answer)
+}
 
 function deleteTrail(request,response){
   let SQL = 'DELETE FROM trail where id = $1';
@@ -145,10 +146,10 @@ function deleteTrail(request,response){
 }
 
 function getTrails(request, response){
-  let SQL = 'SELECT * FROM trial';
+  let SQL = 'SELECT * FROM trail';
   return client.query(SQL)
-    .then(response.redirect('/favorites'))
-    .catch(err = handleError(err, response));
+    .then(results => response.render('pages/favorite', { trails: results.rows}))
+    .catch(err => handleError(err, response));
 }
 
 function updateTrail(request,response){
