@@ -7,7 +7,6 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
-// const bodyParser = require('body-parser');
 const superagent = require('superagent');
 const pg = require('pg');
 const methodOverride = require('method-override')
@@ -62,7 +61,6 @@ function Trail(data) {
   this.imgSmallMed = data.imgSmallMed ? data.imgSmallMed.replace(httpRegex, 'https://') : placeholder;
   this.latitude = data.latitude;
   this.longitude = data.longitude;
-  // TODO:// Is length going to work here as a property name or do we need to use bracket notation because of keyword overlap?
   this.length = data.length ? data.length : 'No length available';
   this.conditionStatus = data.conditionStatus ? data.conditionStatus : 'No condition status available';
   this.conditionDetails = data.conditionDetails ? data.conditionDetails : 'No condition details';
@@ -97,11 +95,11 @@ function getTrailMarkers(trailsList){
 
 // Middleware
 function getLocation(req,res){
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
+  const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
   const everythingYouCouldEverWant = {};
-  return superagent.get(url)
+  return superagent.get(geocodeUrl)
     .then( result => {
-      return new Location (req.query.data, result.body.results[0]);
+      return new Location(req.query.data, result.body.results[0]);
     })
     .then( location => {
       everythingYouCouldEverWant.location = location;
@@ -117,24 +115,6 @@ function getLocation(req,res){
     })
     .catch(err => console.error(err));
 }
-
-
-// function mapMakerHandler(req,res){
-//   console.log('!!!!!!!', req.query.url);
-//   console.log('PARSED',JSON.parse(req.query.url));
-//   let staticMapURL = ;
-//   console.log('requrl',req.query.url);
-//   let parsed = req.query.url.map( trailOBJ => JSON.parse(trailOBJ));
-//   parsed.forEach( trailObj => {
-//     if (parsed.indexOf(trailObj) + 1 !== parsed.length) staticMapURL += trailObj.latitude.toString() + ',' + trailObj.longitude.toString() + '|';
-//     else {
-//       staticMapURL += trailObj.latitude.toString() + ',' + trailObj.longitude.toString() + `&key=${process.env.GEOCODE_API_KEY}`;
-//     }
-//   })
-//   console.log('end of chain');
-//   let answer = {url: staticMapURL, location: req.query.location, trailList: parsed};
-//   res.send(answer) ;
-// }
 
 // Error Handler
 function handleError(error,response) {
