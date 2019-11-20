@@ -157,7 +157,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+}
+
+.form-input {
+  width: 50%;
 }
 
 .form-container input{

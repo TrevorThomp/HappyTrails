@@ -23,13 +23,13 @@
           <form action="/trails/<%= result.id %>" method="post">
             <input type="hidden" name="_method" value="delete">
            <button class="update-btn"><a href="">Delete Book</a></button>
-
+          </form>
         </div>
     </div>
     </section>
   </main>
 
-  <section class="hide-me" id="hidden-form">
+  <section class="hide-me form-container" id="hidden-form">
       <%- include('./form', { formAction: 'update', result: result}) %>
     </section>
 
