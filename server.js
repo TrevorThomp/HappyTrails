@@ -90,8 +90,8 @@ Location.lookup = (handler) => {
     .catch(console.error);
 }
 
-Location.prototype.save = function(){
-  const SQL = 'INSERT INTO locationlist(search_query, latitude, longitude) VALUES($1, $2, $3) RETURNING *';
+Trail.prototype.save = function(){
+  const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *';
   let values = Object.values(this);
   return client.query(SQL, values)
 }
