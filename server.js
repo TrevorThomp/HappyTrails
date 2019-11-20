@@ -47,7 +47,7 @@ app.post('/trails', saveTrail);
 // app.get('/trails/:id', getOneTrail);
 // app.put('/trails/:id', updateTrail);
 // app.delete('/trails/:id', deleteTrail);
-// app.get('/favorites', getTrails);
+app.get('/favorites', getTrails);
 
 
 // Trail Constructor
