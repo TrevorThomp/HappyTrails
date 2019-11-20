@@ -47,7 +47,7 @@ app.get('/location', getLocation);
 // app.get('/trails/:id', getOneTrail);
 // app.put('/trails/:id', updateTrail);
 // app.delete('/trails/:id', deleteTrail);
-// app.get('/favorites', getTrails);
+app.get('/favorites', getTrails);
 
 
 // Trail Constructor
@@ -73,27 +73,6 @@ function Location(query, data) {
   this.search_query = query;
   this.latitude = data.geometry.location.lat;
   this.longitude = data.geometry.location.lng;
-}
-
-Location.lookup = (handler) => {
-  const SQL = 'SELECT * FROM locations WHERE search_query=$1';
-  const values = [handler.query];
-
-  return client.query(SQL, values)
-    .then( results => {
-      if (results.rowCount > 0){
-        handler.cacheHit(results);
-      }else {
-        handler.cacheMiss();
-      }
-    })
-    .catch(console.error);
-}
-
-Location.prototype.save = function(){
-  const SQL = 'INSERT INTO locationlist(search_query, latitude, longitude) VALUES($1, $2, $3) RETURNING *';
-  let values = Object.values(this);
-  return client.query(SQL, values)
 }
 
 function Campground(data){
