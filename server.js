@@ -44,7 +44,7 @@ app.get('/location', getLocation);
 // app.get('/searches/new', newSearch);
 // app.post('/searches', createSearch);
 app.post('/trails', saveTrail);
-// app.get('/trails/:id', getOneTrail);
+app.get('/trails/:id', getOneTrail);
 // app.put('/trails/:id', updateTrail);
 // app.delete('/trails/:id', deleteTrail);
 app.get('/favorites', getTrails);
@@ -169,6 +169,16 @@ function getTrails(request, response){
   return client.query(SQL)
     .then( results => response.render('pages/favorite', {trails: results.rows}))
     .catch(err =>handleError(err,response));
+}
+
+function getOneTrail(request,response) {
+  let SQL = 'SELECT * FROM trail WHERE id=$1';
+
+  let values = [request.params.id];
+
+  return client.query(SQL, values)
+    .then(result => response.render('pages/trails/detail', {result: result.rows[0]}))
+    .catch(err => console.err(err))
 }
 
 function updateTrail(request,response){
