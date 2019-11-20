@@ -4,12 +4,9 @@
   <%- include('partials/head') %>
 </head>
 <body>
-
 <header>
   <%- include('./partials/header') %>
 </header>
-
-
 <main>
   <h1>Find Trails</h1>
   <section id="searchCont">
@@ -17,16 +14,13 @@
         <input class="trailsInput" type="text" name="search" placeholder="Enter a location" required>
           <p>Within:</p>
        <input class="trailsInput" type="number" name="quantity" min="0" max="20" placeholder="miles" required>
-
       <button class="lng-btn" type="submit">Find trails</button>
   </section>
 </form>
 </main>
-
   <footer>
     <%- include('partials/footer') %>
   </footer>
-
-  
 </body>
 </html>
+

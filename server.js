@@ -45,10 +45,9 @@ app.get('/location', getLocation);
 // app.post('/searches', createSearch);
 // app.post('/trails', createTrail);
 // app.get('/trails/:id', getOneTrail);
-app.put('/trails/:id', updateTrail);
-app.delete('/trails/:id', deleteTrail);
-app.get('/favorites', getTrails);
-app.get('/about', aboutHandler)
+// app.put('/trails/:id', updateTrail);
+// app.delete('/trails/:id', deleteTrail);
+// app.get('/favorites', getTrails);
 
 
 // Trail Constructor
@@ -58,8 +57,10 @@ function Trail(data) {
 
   this.name = data.name ? data.name : 'No name available';
   this.summary = data.summary ? data.summary : 'No summary available';
+  this.trail_id = data.id;
   this.difficulty = data.difficulty ? data.difficulty : 'No difficulty available';
-  this.imgSmallMed = data.imgSmallMed ? data.imgSmallMed.replace(httpRegex, 'https://') : placeholder;
+  this.stars = data.stars ? data.stars : '';
+  this.imgURL = data.imgSmallMed ? data.imgSmallMed.replace(httpRegex, 'https://') : placeholder;
   this.latitude = data.latitude;
   this.longitude = data.longitude;
   this.length = data.length ? data.length : 'No length available';
@@ -74,6 +75,27 @@ function Location(query, data) {
   this.longitude = data.geometry.location.lng;
 }
 
+Location.lookup = (handler) => {
+  const SQL = 'SELECT * FROM locations WHERE search_query=$1';
+  const values = [handler.query];
+
+  return client.query(SQL, values)
+    .then( results => {
+      if (results.rowCount > 0){
+        handler.cacheHit(results);
+      }else {
+        handler.cacheMiss();
+      }
+    })
+    .catch(console.error);
+}
+
+Location.prototype.save = function(){
+  const SQL = 'INSERT INTO locationlist(search_query, latitude, longitude) VALUES($1, $2, $3) RETURNING *';
+  let values = Object.values(this);
+  return client.query(SQL, values)
+}
+
 function Campground(data){
   this.id = data.id;
   this.name = data.name;
@@ -86,17 +108,14 @@ function Campground(data){
   this.numCampsites = data.numCampsites;
 }
 //Helper Functions
-
 function makeList(latitude,longitude,maxDistance,endpoint){
-  const hikeURL = `https://www.hikingproject.com/data/${endpoint}?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=20&key=${process.env.HIKING_PROJECT_API_KEY}`;
-  
-  return superagent
-    .get(hikeURL)
+  const hikeURL = `https://www.hikingproject.com/data/${endpoint}?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=10&key=${process.env.HIKING_PROJECT_API_KEY}`;
+  return superagent.get(hikeURL)
     .then( hikeAPICallResult => {
       if(endpoint === 'get-trails') return hikeAPICallResult.body.trails.map(trailObject => new Trail(trailObject));
       else return hikeAPICallResult.body.campgrounds.map(campgroundObject => new Campground(campgroundObject));
     })
-    .catch(handleError);
+    .catch(err => console.error(err));
 }
 
 function mapMaker(list){
@@ -110,78 +129,55 @@ function mapMaker(list){
 
 // Middleware
 function getLocation(req,res){
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
+  const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
   const everythingYouCouldEverWant = {};
-
-
-  return superagent
-    .get(url)
+  return superagent.get(geocodeUrl)
     .then( result => {
+      // TODO: change placement of location.save for async purposes | make helper function instead of object attached? | refactor resource middleware to be object oriented
       return new Location(req.query.data, result.body.results[0]);
     })
     .then( location => {
       everythingYouCouldEverWant.location = location;
+      // console.log(everythingYouCouldEverWant)
       return makeList(location.latitude, location.longitude, req.query.maxMiles, req.query.endpoint);
     })
     .then( list => {
+      console.log(list)
       everythingYouCouldEverWant.list = list;
       return mapMaker(list);
     })
     .then(staticMapURL => {
       everythingYouCouldEverWant.staticMapURL = staticMapURL;
-      res.send(everythingYouCouldEverWant);
+      // res.send(everythingYouCouldEverWant);
+      res.render('pages/results', {data: everythingYouCouldEverWant});
     })
     .catch(err => console.error(err));
 }
 
-function mapMakerHandler(req,res){
-  let staticMapURL = 'https://maps.googleapis.com/maps/api/staticmap?size=1000x1000&maptype=terrain&markers=color:green|';
-  console.log('requrl',req.query.url);
-  let parsed = JSON.parse(req.query.url);
-  parsed.forEach( trailObj => {
-    if (parsed.indexOf(trailObj) + 1 !== parsed.length) staticMapURL += trailObj.latitude.toString() + ',' + trailObj.longitude.toString() + '|';
-    else {
-      staticMapURL += trailObj.latitude.toString() + ',' + trailObj.longitude.toString() + `&key=${process.env.GEOCODE_API_KEY}`;
+function getLocationObjectForm(req, res){
+  const locationHandler = {
+    query: req.query.data,
+
+    cacheHit: (results) => {
+      console.log('Got data from DB');
+      res.send(results.rows[0]);
+    },
+    cacheMiss: () => {
+      console.log('No data in DB, fetching...');
+      Location.getLocation(req.query.data)
+        .then( data => res.send(data));
     }
-  })
-  console.log('end of chain');
-  let answer = {url: staticMapURL, location: req.query.location, trailList: parsed};
-  res.send(answer)
-}
-
-
-function deleteTrail(request,response){
-  let SQL = 'DELETE FROM trail WHERE id=$1';
-  let value = [request.params.id];
-
-
-  return client.query(SQL, value)
-    .then(response.redirect('/'))
-    .catch(err => handleError(err, response));
-}
-
-function getTrails(request, response){
-  let SQL = 'SELECT * FROM trail';
-
-
-  return client.query(SQL)
-    .then( results => response.render('pages/favorite', {trails: results.rows}))
-    .catch(err =>handleError(err,response));
-}
-
-function updateTrail(request,response){
-  let SQL = 'UPDATE TABLE trail SET $2 = $3 WHERE id = $1';
-  let values = [request.params.id, request.params.column, request.params.new_value];//replace column with fieldname and new_value with unput value from user/form
-
+  };
+  Location.lookup(locationHandler);
   return client.query(SQL, values)
     .then(response.redirect(`/trails/${request.params.id}`))
-    .catch(err => handleError(err, response));
+    .catch(err => console.error(err));
 }
 
 // Error Handler
-function handleError(error,response) {
-  response.render('error', {error: error})
-}
+// function handleError(error,response) {
+//   response.render('error', {error: error})
+// }
 
 // About Us Page
 function aboutHandler(request,response) {
