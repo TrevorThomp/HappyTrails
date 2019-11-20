@@ -1,3 +1,51 @@
+/* SEARCH FORM */
+
+#titleHeader {
+  display: flex;
+  align-items: flex-start;
+  
+}
+
+main {
+height: 500px;
+display: flex;
+
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  border-radius: 25px;
+}
+
+input {
+  border-radius: 25px;
+
+}
+
+button {
+  background: #ef3f5a;
+  border: 1px solid #ef3f5a;
+  color: #fff;
+  padding: 0 30px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+  border-radius: 25px;
+  
+}
+
+button:hover {
+  background: #d73851;
+  border: 1px solid #d73851;
+}
+
+
+
+
 /* NAV MENU */
 #menuToggle {
    display: block;
@@ -93,9 +141,7 @@
    padding: 10px 0;
    font-size: 22px;
  }
- /*
-  * And let's fade it in from the left
-  */
+ 
  #menuToggle input:checked ~ ul
  {
    transform: scale(1.0, 1.0);
