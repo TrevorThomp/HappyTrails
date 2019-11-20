@@ -124,7 +124,7 @@ function getLocation(req,res){
     })
     .then(staticMapURL => {
       everythingYouCouldEverWant.staticMapURL = staticMapURL;
-      res.send(everythingYouCouldEverWant);
+      res.render('index', {data: everythingYouCouldEverWant});
     })
     .catch(err => console.error(err));
 }
