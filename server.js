@@ -80,7 +80,7 @@ function makeTrailsList(latitude,longitude,maxDistance){
   const hikeURL = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=20&key=${process.env.HIKING_PROJECT_API_KEY}`;
   return superagent.get(hikeURL)
     .then( hikeAPICallResult => {
-      return hikeAPICallResult.body.trails;
+      return hikeAPICallResult.body.trails.map( trailObject => new Trail(trailObject));
     })
     .catch(error => console.error(error));
 }
