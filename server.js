@@ -45,7 +45,7 @@ app.get('/location', getLocation);
 // app.post('/searches', createSearch);
 // app.post('/trails', createTrail);
 // app.get('/trails/:id', getOneTrail);
-// app.put('/trails/:id', updateTrail);
+app.put('/trails/:id', updateTrail);
 app.delete('/trails/:id', deleteTrail);
 app.get('/favorites', getTrails);
 app.get('/about', aboutHandler)
@@ -143,6 +143,7 @@ function getTrails(request, response){
 function updateTrail(request,response){
   let SQL = 'UPDATE TABLE trail SET $2 = $3 WHERE id = $1';
   let values = [request.params.id, request.params.column, request.params.new_value];//replace column with fieldname and new_value with unput value from user/form
+
   return client.query(SQL, values)
     .then(response.redirect(`/trails/${request.params.id}`))
     .catch(err => handleError(err, response));
