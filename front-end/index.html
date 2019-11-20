@@ -7,19 +7,18 @@
 </head>
 <body>
 
-  <form id="search-form" class="hide">
-    <label for="search">Search for a location</label>
-    <input type="text" name="search" id="input-search" placeholder="Enter a location here">
+  <form id="search-form" class="hide" action="http://localhost:3000/location">
+    <label for="input-search">Search for a location</label>
+    <input type="text" name="data" id="input-search" placeholder="Enter a location here" required="true">
+    <input type="number" name="maxMiles" id="input-number" required="true">
+    <label for="trails-radio">Trails</label>
+    <input type="radio" name="endpoint" id="trails-radio" value="get-trails">
+    <label for="campgrounds-radio">Campgrounds</label>
+    <input type="radio" name="endpoint" id="campgrounds-radio" value="get-campgrounds">
     <button type="submit" id="button-submit">Explore!</button>
   </form>
 
   <img src="" alt="Map of nearby trails" id='mapDisplay'/>
   <h2 id='insertPlaceName'></h2>
-  <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
-  <script src="app.js"></script>
-
 </body>
 </html>
