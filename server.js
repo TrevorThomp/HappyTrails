@@ -75,6 +75,21 @@ function Location(query, data) {
   this.longitude = data.geometry.location.lng;
 }
 
+Location.lookup = (handler) => {
+  const SQL = 'SELECT * FROM locations WHERE search_query=$1';
+  const values = [handler.query];
+
+  return client.query(SQL, values)
+    .then( results => {
+      if (results.rowCount > 0){
+        handler.cacheHit(results);
+      }else {
+        handler.cacheMiss();
+      }
+    })
+    .catch(console.error);
+}
+
 Location.prototype.save = function(){
   const SQL = 'INSERT INTO locationlist(search_query, latitude, longitude) VALUES($1, $2, $3) RETURNING *';
   let values = Object.values(this);
@@ -118,6 +133,7 @@ function getLocation(req,res){
   const everythingYouCouldEverWant = {};
   return superagent.get(geocodeUrl)
     .then( result => {
+      // TODO: change placement of location.save for async purposes | make helper function instead of object attached? | refactor resource middleware to be object oriented
       return new Location(req.query.data, result.body.results[0]);
     })
     .then( location => {
@@ -130,10 +146,28 @@ function getLocation(req,res){
     })
     .then(staticMapURL => {
       everythingYouCouldEverWant.staticMapURL = staticMapURL;
-      res.send(everythingYouCouldEverWant)
+      res.send(everythingYouCouldEverWant);
       // res.render('pages/results', {data: everythingYouCouldEverWant});
     })
     .catch(err => console.error(err));
+}
+
+function getLocationObjectForm(req, res){
+  const locationHandler = {
+    query: req.query.data,
+
+    cacheHit: (results) => {
+      console.log('Got data from DB');
+      res.send(results.rows[0]);
+    },
+
+    cacheMiss: () => {
+      console.log('No data in DB, fetching...');
+      Location.getLocation(req.query.data)
+        .then( data => res.send(data));
+    }
+  };
+  Location.lookup(locationHandler);
 }
 
 // Error Handler
