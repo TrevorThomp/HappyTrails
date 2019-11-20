@@ -37,7 +37,7 @@ app.set('view engine', 'ejs');
 
 // API Routes
 app.get('/', (request,response) => {
-  response.send('Home Page!')
+  response.render('index')
 })
 
 app.get('/location', getLocation);
@@ -46,7 +46,9 @@ app.get('/location', getLocation);
 // app.post('/trails', createTrail);
 // app.get('/trails/:id', getOneTrail);
 // app.put('/trails/:id', updateTrail);
-// app.delete('/books/:id', deleteBook);
+// app.delete('/trails/:id', deleteTrail);
+app.get('/favorites', getTrails);
+
 
 // Trail Constructor
 function Trail(data) {
@@ -92,7 +94,6 @@ function getTrailMarkers(trailsList){
 }
 
 
-
 // Middleware
 function getLocation(req,res){
   const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
@@ -125,8 +126,6 @@ function handleError(error,response) {
 function aboutHandler(request,response) {
   response.render('pages/about');
 }
-
-
 
 // Application Listener
 app.listen(PORT, console.log(`Listening on Port: ${PORT}`))
