@@ -21,18 +21,8 @@ body {
   color: #222222;
   font-family: "Avenir Next", "Avenir", sans-serif;
   overflow-x: hidden;
-  margin-bottom: 75px; 
+  /* margin-bottom: 1000px;  */
   height: 100vh;
-
-  /* display: grid;
-  grid-template-areas: 
-    "header header header"
-    "aside map map"
-    "footer footer footer";
-  grid-template-rows: 80px 1fr 70px;  
-  grid-template-columns: 25% 1fr;
-  grid-row-gap: 10px;
-  grid-column-gap: 10px; */
 }
 
 a {
@@ -57,6 +47,44 @@ header {
 header div {
   height: 10vw;
 }
+
+main {
+  height: 500px;
+  display: flex;
+  
+  }
+  
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    border-radius: 25px;
+  }
+  
+  input {
+    border-radius: 25px;
+  
+  }
+  
+  button {
+    background: #ef3f5a;
+    border: 1px solid #ef3f5a;
+    color: #fff;
+    padding: 0 30px;
+    cursor: pointer;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+    border-radius: 25px;
+    
+  }
+  
+  button:hover {
+    background: #d73851;
+    border: 1px solid #d73851;
+  }
+  
 
 footer {
   background-color: rgb(56, 56, 56);
