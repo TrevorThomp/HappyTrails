@@ -107,8 +107,6 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
-   width: 80%;
-   background-color: antiquewhite;
  }
 
  .trails {
@@ -116,4 +114,23 @@
    justify-content: center;
    align-items: center;
    flex-direction: column;
+   background-color: antiquewhite;
+   width: 80%;
+   margin-bottom: 20px;
+   padding: 10px;
+   border-radius: 10px;
  }
+
+.trails img {
+  margin-bottom: 5px;
+  width: 20%;
+}
+
+.trails h2 {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.trails p {
+  margin: 5px 0;
+}

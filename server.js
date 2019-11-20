@@ -95,7 +95,7 @@ function makeList(latitude,longitude,maxDistance,endpoint){
       if(endpoint === 'get-trails') return hikeAPICallResult.body.trails.map(trailObject => new Trail(trailObject));
       else return hikeAPICallResult.body.campgrounds.map(campgroundObject => new Campground(campgroundObject));
     })
-    .catch(handleError);
+    .catch(err => console.error(err));
 }
 
 function mapMaker(list){
@@ -120,9 +120,11 @@ function getLocation(req,res){
     })
     .then( location => {
       everythingYouCouldEverWant.location = location;
+      // console.log(everythingYouCouldEverWant)
       return makeList(location.latitude, location.longitude, req.query.maxMiles, req.query.endpoint);
     })
     .then( list => {
+      console.log(list)
       everythingYouCouldEverWant.list = list;
       return mapMaker(list);
     })
@@ -175,13 +177,13 @@ function updateTrail(request,response){
 
   return client.query(SQL, values)
     .then(response.redirect(`/trails/${request.params.id}`))
-    .catch(err => handleError(err, response));
+    .catch(err => console.error(err));
 }
 
 // Error Handler
-function handleError(error,response) {
-  response.render('error', {error: error})
-}
+// function handleError(error,response) {
+//   response.render('error', {error: error})
+// }
 
 // About Us Page
 function aboutHandler(request,response) {
