@@ -51,6 +51,7 @@ app.get('/favorites', getTrails);
 app.get('/about', aboutHandler);
 
 
+
 // Trail Constructor
 function Trail(data) {
   const placeholder = 'https://i.imgur.com/iaV1Lp0.jpg';
@@ -74,6 +75,31 @@ function Location(query, data) {
   this.search_query = query;
   this.latitude = data.geometry.location.lat;
   this.longitude = data.geometry.location.lng;
+}
+
+Location.lookup = (handler) => {
+  const SQL = 'SELECT * FROM locations WHERE search_query=$1';
+  const values = [handler.query];
+
+  return client.query(SQL, values)
+    .then( results => {
+      if (results.rowCount > 0){
+        handler.cacheHit(results);
+      }else {
+        handler.cacheMiss();
+      }
+    })
+    .catch(console.error);
+}
+
+Trail.prototype.save = function(){
+  const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *';
+  let values = Object.values(this);
+  return client.query(SQL, values)
+  .then(res => {
+    console.log(res);
+    return res;
+  }) 
 }
 
 function Campground(data){
@@ -122,7 +148,7 @@ function getLocation(req,res){
       return makeList(location.latitude, location.longitude, req.query.maxMiles, req.query.endpoint);
     })
     .then( list => {
-      console.log(list)
+      // console.log(list)
       everythingYouCouldEverWant.list = list;
       return mapMaker(list);
     })
@@ -132,6 +158,13 @@ function getLocation(req,res){
       res.render('pages/results', {data: everythingYouCouldEverWant});
     })
     .catch(err => console.error(err));
+}
+
+function saveTrail(req, res) {
+  console.log(req.body);
+  let trailDetails = new Trail(JSON.parse(req.body.object));
+  trailDetails.save();
+  res.render('./pages/favorite', {trail: trailDetails});
 }
 
 function getLocationObjectForm(req, res){
