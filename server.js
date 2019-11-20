@@ -91,14 +91,13 @@ Location.lookup = (handler) => {
 }
 
 Trail.prototype.save = function(){
-  const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *';
+  const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) WHERE $3 NOT IN (SELECT trail_id FROM trail) RETURNING *';
   let values = Object.values(this);
   return client.query(SQL, values)
   .then(res => {
     console.log(res);
     return res;
-  })
-  
+  }) 
 }
 
 function Campground(data){
