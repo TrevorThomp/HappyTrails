@@ -91,9 +91,14 @@ Location.lookup = (handler) => {
 }
 
 Trail.prototype.save = function(){
-  const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *';
+  const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *';
   let values = Object.values(this);
   return client.query(SQL, values)
+  .then(res => {
+    console.log(res);
+    return res;
+  })
+  
 }
 
 function Campground(data){
@@ -112,7 +117,16 @@ function makeList(latitude,longitude,maxDistance,endpoint){
   const hikeURL = `https://www.hikingproject.com/data/${endpoint}?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=10&key=${process.env.HIKING_PROJECT_API_KEY}`;
   return superagent.get(hikeURL)
     .then( hikeAPICallResult => {
-      if(endpoint === 'get-trails') return hikeAPICallResult.body.trails.map(trailObject => new Trail(trailObject));
+      if(endpoint === 'get-trails') return hikeAPICallResult.body.trails.map(trailObject => {
+        let newTrail = new Trail(trailObject);
+  
+        newTrail.save()
+        .then(result => {
+         console.log('this is newTrail result', result);
+         return result;
+        })
+        return newTrail;
+      })
       else return hikeAPICallResult.body.campgrounds.map(campgroundObject => new Campground(campgroundObject));
     })
     .catch(err => console.error(err));
@@ -142,7 +156,7 @@ function getLocation(req,res){
       return makeList(location.latitude, location.longitude, req.query.maxMiles, req.query.endpoint);
     })
     .then( list => {
-      console.log(list)
+      // console.log(list)
       everythingYouCouldEverWant.list = list;
       return mapMaker(list);
     })
