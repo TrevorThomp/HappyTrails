@@ -27,10 +27,10 @@
               
             
             <section class="hide-me" id="hidden-form">
-            <form action="/books" method="post" class="form-container">
-            <input type="text" name="title" value="<%= item.summary %>" required>
-            <input type="text" name="author" value="<%= item.length %>" required>
-            <input type="text" name="isbn" value="<%= item.difficulty.charAt(0).toUpperCase() + item.difficulty.slice(1) %>" required>
+            <form action="/trails" method="post" class="form-container">
+            <input type="text" name="summary" value="<%= item.summary %>" required>
+            <input type="text" name="length" value="<%= item.length %>" required>
+            <input type="text" name="difficulty" value="<%= item.difficulty.charAt(0).toUpperCase() + item.difficulty.slice(1) %>" required>
             <button type="submit" class="detail-button add-button">Add to Favorites</button>
         </form>
       </section>

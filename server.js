@@ -43,11 +43,12 @@ app.get('/', (request,response) => {
 app.get('/location', getLocation);
 // app.get('/searches/new', newSearch);
 // app.post('/searches', createSearch);
-// app.post('/trails', createTrail);
+app.post('/trails', saveTrail);
 // app.get('/trails/:id', getOneTrail);
 // app.put('/trails/:id', updateTrail);
 // app.delete('/trails/:id', deleteTrail);
-// app.get('/favorites', getTrails);
+app.get('/favorites', getTrails);
+app.get('/about', aboutHandler);
 
 
 // Trail Constructor
@@ -73,27 +74,6 @@ function Location(query, data) {
   this.search_query = query;
   this.latitude = data.geometry.location.lat;
   this.longitude = data.geometry.location.lng;
-}
-
-Location.lookup = (handler) => {
-  const SQL = 'SELECT * FROM locations WHERE search_query=$1';
-  const values = [handler.query];
-
-  return client.query(SQL, values)
-    .then( results => {
-      if (results.rowCount > 0){
-        handler.cacheHit(results);
-      }else {
-        handler.cacheMiss();
-      }
-    })
-    .catch(console.error);
-}
-
-Location.prototype.save = function(){
-  const SQL = 'INSERT INTO locationlist(search_query, latitude, longitude) VALUES($1, $2, $3) RETURNING *';
-  let values = Object.values(this);
-  return client.query(SQL, values)
 }
 
 function Campground(data){
@@ -172,6 +152,38 @@ function getLocationObjectForm(req, res){
   return client.query(SQL, values)
     .then(response.redirect(`/trails/${request.params.id}`))
     .catch(err => console.error(err));
+}
+
+function saveTrail(request,response) {
+  console.log(request.body)
+}
+
+function getTrails(request, response){
+  let SQL = 'SELECT * FROM trail';
+
+
+  return client.query(SQL)
+    .then( results => response.render('pages/favorite', {trails: results.rows}))
+    .catch(err =>handleError(err,response));
+}
+
+function updateTrail(request,response){
+  let SQL = 'UPDATE TABLE trail SET $2 = $3 WHERE id = $1';
+  let values = [request.params.id, request.params.column, request.params.new_value];//replace column with fieldname and new_value with unput value from user/form
+
+  return client.query(SQL, values)
+    .then(response.redirect(`/trails/${request.params.id}`))
+    .catch(err => console.error(err));
+}
+
+function deleteTrail(request,response){
+  let SQL = 'DELETE FROM trail WHERE id=$1';
+  let value = [request.params.id];
+
+
+  return client.query(SQL, value)
+    .then(response.redirect('/'))
+    .catch(err => handleError(err, response));
 }
 
 // Error Handler
