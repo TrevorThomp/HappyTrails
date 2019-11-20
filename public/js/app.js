@@ -2,7 +2,7 @@
 
 $('.select-button').on('click', function() {
   event.preventDefault()
-  $(this).next().removeClass('hide-me');
+  $(this).next().toggleClass('hide-me');
 });
 
 $('.btn-update').on('click', function() {
