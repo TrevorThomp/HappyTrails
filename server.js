@@ -87,22 +87,22 @@ function Campground(data){
   this.numCampsites = data.numCampsites;
 }
 //Helper Functions
-function makeTrailsList(latitude,longitude,maxDistance,endpoint){
+function makeList(latitude,longitude,maxDistance,endpoint){
   console.log('look',endpoint);
   const hikeURL = `https://www.hikingproject.com/data/${endpoint}?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=20&key=${process.env.HIKING_PROJECT_API_KEY}`;
   console.log('url', hikeURL);
   return superagent.get(hikeURL)
     .then( hikeAPICallResult => {
       if(endpoint === 'get-trails') return hikeAPICallResult.body.trails.map(trailObject => new Trail(trailObject));
-      else return hikeAPICallResult.body.campgrounds.map( campgroundObject => new Campground(campgroundObject));
+      else return hikeAPICallResult.body.campgrounds.map(campgroundObject => new Campground(campgroundObject));
     })
     .catch(error => console.error(error));
 }
 
-function getTrailMarkers(trailsList){
-  return trailsList.reduce((staticMapURL, trailObject) => {
-    if (trailsList.indexOf(trailObject) + 1 !== trailsList.length) staticMapURL += trailObject.latitude.toString() + ',' + trailObject.longitude.toString() + '|';
-    else staticMapURL += trailObject.latitude.toString() + ',' + trailObject.longitude.toString() + `&key=${process.env.GEOCODE_API_KEY}`;
+function mapMaker(list){
+  return list.reduce((staticMapURL, object) => {
+    if (list.indexOf(object) + 1 !== list.length) staticMapURL += object.latitude.toString() + ',' + object.longitude.toString() + '|';
+    else staticMapURL += object.latitude.toString() + ',' + object.longitude.toString() + `&key=${process.env.GEOCODE_API_KEY}`;
     return staticMapURL;
   }, 'https://maps.googleapis.com/maps/api/staticmap?size=1000x1000&maptype=terrain&markers=color:green|');
 }
@@ -118,11 +118,12 @@ function getLocation(req,res){
     })
     .then( location => {
       everythingYouCouldEverWant.location = location;
-      return makeTrailsList(location.latitude, location.longitude, req.query.maxMiles, req.query.endpoint);
+      return makeList(location.latitude, location.longitude, req.query.maxMiles, req.query.endpoint);
     })
-    .then( trailsList => {
-      everythingYouCouldEverWant.trailsList = trailsList;
-      return getTrailMarkers(trailsList);
+    .then( list => {
+      console.log('here',list);
+      everythingYouCouldEverWant.list = list;
+      return mapMaker(list);
     })
     .then(staticMapURL => {
       everythingYouCouldEverWant.staticMapURL = staticMapURL;
