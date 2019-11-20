@@ -45,9 +45,10 @@ app.get('/location', getLocation);
 // app.post('/searches', createSearch);
 // app.post('/trails', createTrail);
 // app.get('/trails/:id', getOneTrail);
-// app.put('/trails/:id', updateTrail);
-// app.delete('/trails/:id', deleteTrail);
-// app.get('/favorites', getTrails);
+app.put('/trails/:id', updateTrail);
+app.delete('/trails/:id', deleteTrail);
+app.get('/favorites', getTrails);
+app.get('/about', aboutHandler)
 
 
 // Trail Constructor
@@ -57,7 +58,6 @@ function Trail(data) {
 
   this.name = data.name ? data.name : 'No name available';
   this.summary = data.summary ? data.summary : 'No summary available';
-  this.trail_id = data.id;
   this.difficulty = data.difficulty ? data.difficulty : 'No difficulty available';
   this.stars = data.stars ? data.stars : '';
   this.imgURL = data.imgSmallMed ? data.imgSmallMed.replace(httpRegex, 'https://') : placeholder;
@@ -87,6 +87,7 @@ function Campground(data){
   this.numCampsites = data.numCampsites;
 }
 //Helper Functions
+
 function makeList(latitude,longitude,maxDistance,endpoint){
   const hikeURL = `https://www.hikingproject.com/data/${endpoint}?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=10&key=${process.env.HIKING_PROJECT_API_KEY}`;
   return superagent.get(hikeURL)
@@ -94,7 +95,7 @@ function makeList(latitude,longitude,maxDistance,endpoint){
       if(endpoint === 'get-trails') return hikeAPICallResult.body.trails.map(trailObject => new Trail(trailObject));
       else return hikeAPICallResult.body.campgrounds.map(campgroundObject => new Campground(campgroundObject));
     })
-    .catch(error => console.error(error));
+    .catch(handleError);
 }
 
 function mapMaker(list){
@@ -108,9 +109,12 @@ function mapMaker(list){
 
 // Middleware
 function getLocation(req,res){
-  const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
   const everythingYouCouldEverWant = {};
-  return superagent.get(geocodeUrl)
+
+
+  return superagent
+    .get(url)
     .then( result => {
       return new Location(req.query.data, result.body.results[0]);
     })
@@ -128,6 +132,50 @@ function getLocation(req,res){
       res.render('pages/results', {data: everythingYouCouldEverWant});
     })
     .catch(err => console.error(err));
+}
+
+function mapMakerHandler(req,res){
+  let staticMapURL = 'https://maps.googleapis.com/maps/api/staticmap?size=1000x1000&maptype=terrain&markers=color:green|';
+  console.log('requrl',req.query.url);
+  let parsed = JSON.parse(req.query.url);
+  parsed.forEach( trailObj => {
+    if (parsed.indexOf(trailObj) + 1 !== parsed.length) staticMapURL += trailObj.latitude.toString() + ',' + trailObj.longitude.toString() + '|';
+    else {
+      staticMapURL += trailObj.latitude.toString() + ',' + trailObj.longitude.toString() + `&key=${process.env.GEOCODE_API_KEY}`;
+    }
+  })
+  console.log('end of chain');
+  let answer = {url: staticMapURL, location: req.query.location, trailList: parsed};
+  res.send(answer)
+}
+
+
+function deleteTrail(request,response){
+  let SQL = 'DELETE FROM trail WHERE id=$1';
+  let value = [request.params.id];
+
+
+  return client.query(SQL, value)
+    .then(response.redirect('/'))
+    .catch(err => handleError(err, response));
+}
+
+function getTrails(request, response){
+  let SQL = 'SELECT * FROM trail';
+
+
+  return client.query(SQL)
+    .then( results => response.render('pages/favorite', {trails: results.rows}))
+    .catch(err =>handleError(err,response));
+}
+
+function updateTrail(request,response){
+  let SQL = 'UPDATE TABLE trail SET $2 = $3 WHERE id = $1';
+  let values = [request.params.id, request.params.column, request.params.new_value];//replace column with fieldname and new_value with unput value from user/form
+
+  return client.query(SQL, values)
+    .then(response.redirect(`/trails/${request.params.id}`))
+    .catch(err => handleError(err, response));
 }
 
 // Error Handler
