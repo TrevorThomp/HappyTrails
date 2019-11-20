@@ -181,7 +181,7 @@ function getOneTrail(request,response) {
 
 function updateTrail(request,response){
   let { name, summary, trail_id, difficulty, stars, img_small, latitude, longitude, length, conditionStatus, conditionDetails} = request.body;
-  let SQL = 'UPDATE trail SET name=$1, summary=$2, difficulty=$3, stars=$4, img_small=$5, latitude=$6 longitude=$7, length=$8, conditionStatus=$9, conditionDetails=$10 WHERE id=$11';
+  let SQL = 'UPDATE trail SET WHERE id=$';
   let values = [name, summary, trail_id, difficulty, stars, img_small, latitude, longitude, length, conditionStatus, conditionDetails];
 
   return client.query(SQL, values)
