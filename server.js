@@ -91,7 +91,7 @@ Location.lookup = (handler) => {
 }
 
 Trail.prototype.save = function(){
-  const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *';
+  const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id';
   let values = Object.values(this);
   return client.query(SQL, values);
 }
@@ -180,9 +180,9 @@ function getOneTrail(request,response) {
 }
 
 function updateTrail(request,response){
-  let { name, summary, trail_id, difficulty, stars, img_small, latitude, longitude, length, conditionStatus, conditionDetails} = request.body;
-  let SQL = 'UPDATE trail SET WHERE id=$';
-  let values = [name, summary, trail_id, difficulty, stars, img_small, latitude, longitude, length, conditionStatus, conditionDetails];
+  let { name, summary, difficulty, img_small, length} = request.body;
+  let SQL = 'UPDATE trail SET name=$1, summary=$2, difficulty=$3, img_small=$4, length=$5 WHERE id=$6';
+  let values = [name, summary, difficulty, img_small, length, request.params.id];
 
   return client.query(SQL, values)
     .then(response.redirect(`/trails/${request.params.id}`))
