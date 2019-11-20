@@ -115,27 +115,26 @@
   /* Map and Aside Structure */
 
 #main-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 1fr;
 }
 
-  
-
   #results-container {
-    background: blue;
-    grid-area: aside;
-    width: 80%;
-    height: 100%;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 100%;
   }
 
   #map-container {
-    background: purple;
-    grid-area: map;
-    width: 80%;
+    width: 70%;
     height: 300px;
     margin: 50px 0px;
+  }
+
+  #map-container img {
+    width: 100%;
+    margin-left: 40px;
   }
 
   
