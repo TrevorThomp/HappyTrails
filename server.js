@@ -75,6 +75,12 @@ function Location(query, data) {
   this.longitude = data.geometry.location.lng;
 }
 
+Location.prototype.save = function(){
+  const SQL = 'INSERT INTO locationlist(search_query, latitude, longitude) VALUES($1, $2, $3) RETURNING *';
+  let values = Object.values(this);
+  return client.query(SQL, values)
+}
+
 function Campground(data){
   this.id = data.id;
   this.name = data.name;
@@ -124,7 +130,8 @@ function getLocation(req,res){
     })
     .then(staticMapURL => {
       everythingYouCouldEverWant.staticMapURL = staticMapURL;
-      res.send(everythingYouCouldEverWant);
+      res.send(everythingYouCouldEverWant)
+      // res.render('pages/results', {data: everythingYouCouldEverWant});
     })
     .catch(err => console.error(err));
 }
