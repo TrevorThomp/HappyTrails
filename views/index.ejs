@@ -10,17 +10,21 @@
 <main>
   <h1>Find Trails</h1>
   <section id="searchCont">
-    <form id="search-form" action="/location" method="post">
-        <input class="trailsInput" type="text" name="search" placeholder="Enter a location" required>
-          <p>Within:</p>
-       <input class="trailsInput" type="number" name="quantity" min="0" max="20" placeholder="miles" required>
-      <button class="lng-btn" type="submit">Find trails</button>
-  </section>
-</form>
+
+      <form id="search-form" action="/location">
+        <label for="input-search">Search for a location</label>
+        <input type="text" name="data" id="input-search" placeholder="Enter a location here" required="true">
+        <input type="number" name="maxMiles" id="input-number" required="true">
+        <label for="trails-radio">Trails</label>
+        <input type="radio" name="endpoint" id="trails-radio" value="get-trails">
+        <label for="campgrounds-radio">Campgrounds</label>
+        <input type="radio" name="endpoint" id="campgrounds-radio" value="get-campgrounds">
+        <button type="submit" id="button-submit">Explore!</button>
+      </form>
+
 </main>
   <footer>
     <%- include('partials/footer') %>
   </footer>
 </body>
 </html>
-

@@ -122,8 +122,8 @@
  }
 
 .trails img {
-  margin-bottom: 5px;
-  width: 20%;
+  margin-bottom: 15px;
+  width: 30%;
 }
 
 .trails h2 {
@@ -133,4 +133,33 @@
 
 .trails p {
   margin: 5px 0;
+}
+
+/* Hidden Form */
+.hide-me {
+  display: none;
+}
+
+#hidden-form {
+  width: 60%;
+}
+
+.detail-button {
+  padding: 15px;
+  margin-bottom: 15px;
+  width: 50%;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-container input{
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
 }
