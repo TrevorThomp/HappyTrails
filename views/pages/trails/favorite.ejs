@@ -5,58 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Favorites</title>
-  <% include ../partials/head %>
+  <link rel="stylesheet" href="../../../public/styles/base.css">
 </head>
-<body>
+<body id="favorites-body">
+  
   <header>
-    <% include ../partials/header %>
+    <%- include('../partials/header') %>
   </header>
   <main>
-<h1>Favorites</h1>
-<p>Form header</p>
-<section>
-    <div class="favorite-lt">
-      <section>
-        <h3><%= trailsData.name %></h3>
-        <label for="name">Enter trail name: </label>
-        <input type="text" name="name" id="name" required value> <%= trailsData.name %>
-        <label for="summary">Enter trail summary: </label>
-        <input type="text" name="summary" id="summary"> <%= trailsData.summary %>
-        <label for="difficulty">Enter trail difficulty: </label>
-        <input type="number" name="difficulty" id="difficulty" min="0" max="5" step="0.1"> <%= trailsData.difficulty %>  
-        <label for="conditionDetails">Enter condition Details: </label>
-        <input type="text" name="conditionDetails" id="conditionDetails"><%= trailsData.conditionDetails %>     
-      </section>
 
+    <h2 id="title">
+      <span id="count"><%= trails.length %></span>
+       Favorite Trails
+    </h2>
 
-  <div>
-    <form method="post" action="/favorites/<%= trail.id %>?_method=DELETE">
-    <input type="hidden" name="_method" value='DELETE'>
-    </form>
-  </div>
+    <section id="favorites-container">
+      <% trails.forEach(item => { %>
+        <div class="trails">
+          <img src="<%= item.img_small%>" alt="Picture of a trail">
+          <h2><%= item.name %></h2>
+          <p><%= item.summary %></p>
+          <p>Difficulty: <%= item.difficulty %></p>
+          <p><%= item.length %> miles</p>
+        </div>
+    <%  }); %>
+    </section>
 
-  <form id="<%= formAction %>-form" action="<%= 'update' === formAction ? `/trail/${result.id}` : 'add' %>" method="post">
-    <input type="hidden" name="_method" value="<%= 'update' === formAction ? 'put' : 'post' %>">
-    <label for="name">Enter trail name: </label>
-    <input type="text" name="name" id="name"  value="<%= trailsData.name %>"" required>
-    <label for="summary">Enter trail summary: </label>
-    <input type="text" name="summary" id="summary" value="<%= trailsData.summary %>"" required>
-    <label for="difficulty">Enter trail difficulty: </label>
-    <input type="number" name="difficulty" id="difficulty" min="0" max="5" step="0.1" value="<%= trailsData.difficulty %>" required>
-    <label for="conditionDetails">Enter condition Details: </label>
-    <input type="text" name="conditionDetails" id="conditionDetails" value="<%= trailsData.conditionDetails %>" required>   
-
-    <button type="submit" class="add-button">Update Trail</button>
-  </form>
-
-  <div>
-    <button ><a href="/">Home</a></button>
-  </div>
-
-</section>
   </main>
   <footer>
-    <% include ../partials/footer %>
+    <%- include('../partials/footer') %>
   </footer>
 </body>
 </html>

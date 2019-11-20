@@ -45,9 +45,10 @@ app.get('/location', getLocation);
 // app.post('/searches', createSearch);
 // app.post('/trails', createTrail);
 // app.get('/trails/:id', getOneTrail);
-// app.put('/trails/:id', updateTrail);
-// app.delete('/trails/:id', deleteTrail);
+app.put('/trails/:id', updateTrail);
+app.delete('/trails/:id', deleteTrail);
 app.get('/favorites', getTrails);
+app.get('/about', aboutHandler)
 
 
 // Trail Constructor
@@ -57,9 +58,7 @@ function Trail(data) {
 
   this.name = data.name ? data.name : 'No name available';
   this.summary = data.summary ? data.summary : 'No summary available';
-  this.trail_id = data.id;
   this.difficulty = data.difficulty ? data.difficulty : 'No difficulty available';
-  this.stars = data.stars ? data.stars : '';
   this.imgSmallMed = data.imgSmallMed ? data.imgSmallMed.replace(httpRegex, 'https://') : placeholder;
   this.latitude = data.latitude;
   this.longitude = data.longitude;
@@ -78,11 +77,13 @@ function Location(query, data) {
 //Helper Functions
 function makeTrailsList(latitude,longitude){
   const hikeURL = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&maxDistance=10&maxResults=20&key=${process.env.HIKING_PROJECT_API_KEY}`;
-  return superagent.get(hikeURL)
+
+  return superagent
+    .get(hikeURL)
     .then( hikeAPICallResult => {
       return hikeAPICallResult.body.trails;
     })
-    .catch(error => console.error(error));
+    .catch(handleError);
 }
 
 function getTrailMarkers(trailsList){
@@ -96,9 +97,12 @@ function getTrailMarkers(trailsList){
 
 // Middleware
 function getLocation(req,res){
-  const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
   const everythingYouCouldEverWant = {};
-  return superagent.get(geocodeUrl)
+
+
+  return superagent
+    .get(url)
     .then( result => {
       return new Location(req.query.data, result.body.results[0]);
     })
@@ -115,6 +119,34 @@ function getLocation(req,res){
       res.send(everythingYouCouldEverWant);
     })
     .catch(err => console.error(err));
+}
+
+function deleteTrail(request,response){
+  let SQL = 'DELETE FROM trail WHERE id=$1';
+  let value = [request.params.id];
+
+
+  return client.query(SQL, value)
+    .then(response.redirect('/'))
+    .catch(err => handleError(err, response));
+}
+
+function getTrails(request, response){
+  let SQL = 'SELECT * FROM trail';
+
+
+  return client.query(SQL)
+    .then( results => response.render('pages/favorites', {trails: results.rows}))
+    .catch(err =>handleError(err,response));
+}
+
+function updateTrail(request,response){
+  let SQL = 'UPDATE TABLE trail SET $2 = $3 WHERE id = $1';
+  let values = [request.params.id, request.params.column, request.params.new_value];//replace column with fieldname and new_value with unput value from user/form
+
+  return client.query(SQL, values)
+    .then(response.redirect(`/trails/${request.params.id}`))
+    .catch(err => handleError(err, response));
 }
 
 // Error Handler
