@@ -4,23 +4,25 @@
   <%- include('partials/head') %>
 </head>
 <body>
-  <header>
-    <%- include('partials/header') %>
-  </header>
-  <main id="main-container">
-    <div id="map-container">
-      <img src="<%= data.staticMapURL %>" alt="">
-    </div>
-    <aside id="results-container">
-      <div class="result-item">
-        <h1>test</h1>
-      </div>
-    </aside>
-  </main>
+<header>
+  <%- include('./partials/header') %>
+</header>
+<main>
+  <h1>Find Trails</h1>
+  <section id="searchCont">
+      <form id="search-form" class="hide" action="http://localhost:3000/location">
+        <label for="input-search">Search for a location</label>
+        <input type="text" name="data" id="input-search" placeholder="Enter a location here" required="true">
+        <input type="number" name="maxMiles" id="input-number" required="true">
+        <label for="trails-radio">Trails</label>
+        <input type="radio" name="endpoint" id="trails-radio" value="get-trails">
+        <label for="campgrounds-radio">Campgrounds</label>
+        <input type="radio" name="endpoint" id="campgrounds-radio" value="get-campgrounds">
+        <button type="submit" id="button-submit">Explore!</button>
+      </form>
+</main>
   <footer>
     <%- include('partials/footer') %>
   </footer>
-
-  
 </body>
 </html>

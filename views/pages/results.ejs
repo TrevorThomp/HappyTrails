@@ -8,20 +8,24 @@
     <%- include('../partials/header') %>
   </header>
   <main id="main-container">
-      <img src="<%= data.staticMapURL %>" alt="Map of the returned items from the search">
+
+
+      
     <aside id="results-container">
-      <ul>
           <% data.list.forEach(listitem => { %>
-            <li>
+              <div class="trails">
               <img src="<%= listitem.imgURL %>" height="150" width="250" alt="image related to this trail or campground"/>
               <h2><%= listitem.name %></h2>
               <p><%= listitem.summary %></p>
               <p><%= listitem.length %></p>
-              <p><%= listitem.difficulty %></p>
-            </li>
+              <p><%= listitem.difficulty %></p></div>
+
             <% }) %>
-      </ul>
     </aside>
+
+    <div id="map-container">
+        <img src="<%= data.staticMapURL %>" alt="Map of the returned items from the search">
+    </div>
   </main>
   <footer>
     <%- include('../partials/footer') %>
