@@ -20,8 +20,7 @@ CREATE TABLE locationlist (
   search_query VARCHAR(255),
   latitude  DECIMAL(12,7),
   longitude  DECIMAL(12,7),
-  miles_from DECIMAL (4,1),
-  FOREIGN KEY (id) REFERENCES trail(id)
+  miles_from DECIMAL (4,1)
 );
 
 -- INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ();
