@@ -76,8 +76,8 @@ function Location(query, data) {
 }
 
 //Helper Functions
-function makeTrailsList(latitude,longitude){
-  const hikeURL = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&maxDistance=10&maxResults=20&key=${process.env.HIKING_PROJECT_API_KEY}`;
+function makeTrailsList(latitude,longitude,maxDistance){
+  const hikeURL = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=20&key=${process.env.HIKING_PROJECT_API_KEY}`;
   return superagent.get(hikeURL)
     .then( hikeAPICallResult => {
       return hikeAPICallResult.body.trails;
@@ -88,8 +88,8 @@ function makeTrailsList(latitude,longitude){
 function getTrailMarkers(trailsList){
   return trailsList.reduce((staticMapURL, trailObject) => {
     if (trailsList.indexOf(trailObject) + 1 !== trailsList.length) staticMapURL += trailObject.latitude.toString() + ',' + trailObject.longitude.toString() + '|';
-      else staticMapURL += trailObject.latitude.toString() + ',' + trailObject.longitude.toString() + `&key=${process.env.GEOCODE_API_KEY}`;
-      return staticMapURL;
+    else staticMapURL += trailObject.latitude.toString() + ',' + trailObject.longitude.toString() + `&key=${process.env.GEOCODE_API_KEY}`;
+    return staticMapURL;
   }, 'https://maps.googleapis.com/maps/api/staticmap?size=1000x1000&maptype=terrain&markers=color:green|');
 }
 
@@ -104,7 +104,7 @@ function getLocation(req,res){
     })
     .then( location => {
       everythingYouCouldEverWant.location = location;
-      return makeTrailsList(location.latitude, location.longitude);
+      return makeTrailsList(location.latitude, location.longitude, req.query.maxMiles);
     })
     .then( trailsList => {
       everythingYouCouldEverWant.trailsList = trailsList;
