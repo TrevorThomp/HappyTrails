@@ -44,11 +44,11 @@ app.get('/location', getLocation);
 // app.get('/searches/new', newSearch);
 // app.post('/searches', createSearch);
 app.post('/trails', saveTrail);
-app.get('/trails/:id', getOneTrail);
+// app.get('/trails/:id', getOneTrail);
 // app.put('/trails/:id', updateTrail);
 // app.delete('/trails/:id', deleteTrail);
 app.get('/favorites', getTrails);
-app.et('/about', aboutHandler);
+app.get('/about', aboutHandler);
 
 
 // Trail Constructor
