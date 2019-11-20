@@ -98,17 +98,24 @@ function getTrailMarkers(trailsList){
 // Middleware
 function getLocation(req,res){
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
+  const everythingYouCouldEverWant = {};
   return superagent.get(url)
     .then( result => {
       return new Location (req.query.data, result.body.results[0]);
     })
     .then( location => {
+      everythingYouCouldEverWant.location = location;
       return makeTrailsList(location.latitude, location.longitude);
     })
     .then( trailsList => {
+      everythingYouCouldEverWant.trailsList = trailsList;
       return getTrailMarkers(trailsList);
     })
-    .then(staticMapURL => res.send(staticMapURL));
+    .then(staticMapURL => {
+      everythingYouCouldEverWant.staticMapURL = staticMapURL;
+      res.send(everythingYouCouldEverWant);
+    })
+    .catch(err => console.error(err));
 }
 
 
