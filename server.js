@@ -43,7 +43,7 @@ app.get('/', (request,response) => {
 app.get('/location', getLocation);
 // app.get('/searches/new', newSearch);
 // app.post('/searches', createSearch);
-// app.post('/trails', createTrail);
+app.post('/trails', saveTrail);
 // app.get('/trails/:id', getOneTrail);
 app.put('/trails/:id', updateTrail);
 app.delete('/trails/:id', deleteTrail);
@@ -178,6 +178,10 @@ function updateTrail(request,response){
   return client.query(SQL, values)
     .then(response.redirect(`/trails/${request.params.id}`))
     .catch(err => console.error(err));
+}
+
+function saveTrail(request,response) {
+  console.log(request.body)
 }
 
 // Error Handler
