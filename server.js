@@ -88,9 +88,7 @@ function Campground(data){
 }
 //Helper Functions
 function makeList(latitude,longitude,maxDistance,endpoint){
-  console.log('look',endpoint);
   const hikeURL = `https://www.hikingproject.com/data/${endpoint}?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=20&key=${process.env.HIKING_PROJECT_API_KEY}`;
-  console.log('url', hikeURL);
   return superagent.get(hikeURL)
     .then( hikeAPICallResult => {
       if(endpoint === 'get-trails') return hikeAPICallResult.body.trails.map(trailObject => new Trail(trailObject));
@@ -121,7 +119,6 @@ function getLocation(req,res){
       return makeList(location.latitude, location.longitude, req.query.maxMiles, req.query.endpoint);
     })
     .then( list => {
-      console.log('here',list);
       everythingYouCouldEverWant.list = list;
       return mapMaker(list);
     })
