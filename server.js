@@ -42,8 +42,6 @@ app.get('/', (request,response) => {
 })
 
 app.get('/location', getLocation);
-app.get('/trailList', trailListHandler);
-app.get('/mapMaker', mapMakerHandler);
 // app.get('/searches/new', newSearch);
 // app.post('/searches', createSearch);
 // app.post('/trails', createTrail);
@@ -78,19 +76,21 @@ function Location(query, data) {
 }
 
 //Helper Functions
-function makeTrails(latitude,longitude){
+function makeTrailsList(latitude,longitude){
   const hikeURL = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&maxDistance=10&maxResults=20&key=${process.env.HIKING_PROJECT_API_KEY}`;
   return superagent.get(hikeURL)
     .then( hikeAPICallResult => {
-      return hikeAPICallResult.body;
+      return hikeAPICallResult.body.trails;
     })
     .catch(error => console.error(error));
 }
 
-function getTrailMarkers(trailAPIResponse){
-  let moddedData = trailAPIResponse.map( trail => ({latitude: trail.latitude.toString(), longitude: trail.longitude.toString()}));
-  console.log('moddedData',moddedData);
-  return moddedData;
+function getTrailMarkers(trailsList){
+  return trailsList.reduce((staticMapURL, trailObject) => {
+    if (trailsList.indexOf(trailObject) + 1 !== trailsList.length) staticMapURL += trailObject.latitude.toString() + ',' + trailObject.longitude.toString() + '|';
+      else staticMapURL += trailObject.latitude.toString() + ',' + trailObject.longitude.toString() + `&key=${process.env.GEOCODE_API_KEY}`;
+      return staticMapURL;
+  }, 'https://maps.googleapis.com/maps/api/staticmap?size=1000x1000&maptype=terrain&markers=color:green|');
 }
 
 
@@ -100,39 +100,34 @@ function getLocation(req,res){
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
   return superagent.get(url)
     .then( result => {
-      return new Location (req.query.location, result.body.results[0]);
+      return new Location (req.query.data, result.body.results[0]);
     })
     .then( location => {
-      res.redirect(`/trailList?latitude=${location.latitude}&longitude=${location.longitude}`);
+      return makeTrailsList(location.latitude, location.longitude);
     })
-    .catch(error => console.error(error));
+    .then( trailsList => {
+      return getTrailMarkers(trailsList);
+    })
+    .then(staticMapURL => res.send(staticMapURL));
 }
 
-function trailListHandler(req, res){
-  makeTrails(req.query.latitude,req.query.longitude)
-    .then( listOfTrails => {
-      return getTrailMarkers(listOfTrails.trails);
-    })
-    .then( url => {
-      res.redirect(`/mapMaker?url=${JSON.stringify(url)}&location=${req.query.latitude},${req.query.longitude}`);
-    })
-    .catch(err => console.error(err));
-}
 
-function mapMakerHandler(req,res){
-  let staticMapURL = 'https://maps.googleapis.com/maps/api/staticmap?size=1000x1000&maptype=terrain&markers=color:green|';
-  console.log('requrl',req.query.url);
-  let parsed = JSON.parse(req.query.url);
-  parsed.forEach( trailObj => {
-    if (parsed.indexOf(trailObj) + 1 !== parsed.length) staticMapURL += trailObj.latitude.toString() + ',' + trailObj.longitude.toString() + '|';
-    else {
-      staticMapURL += trailObj.latitude.toString() + ',' + trailObj.longitude.toString() + `&key=${process.env.GEOCODE_API_KEY}`;
-    }
-  })
-  console.log('end of chain');
-  let answer = {url: staticMapURL, location: req.query.location, trailList: parsed};
-  res.send(answer) ;
-}
+// function mapMakerHandler(req,res){
+//   console.log('!!!!!!!', req.query.url);
+//   console.log('PARSED',JSON.parse(req.query.url));
+//   let staticMapURL = ;
+//   console.log('requrl',req.query.url);
+//   let parsed = req.query.url.map( trailOBJ => JSON.parse(trailOBJ));
+//   parsed.forEach( trailObj => {
+//     if (parsed.indexOf(trailObj) + 1 !== parsed.length) staticMapURL += trailObj.latitude.toString() + ',' + trailObj.longitude.toString() + '|';
+//     else {
+//       staticMapURL += trailObj.latitude.toString() + ',' + trailObj.longitude.toString() + `&key=${process.env.GEOCODE_API_KEY}`;
+//     }
+//   })
+//   console.log('end of chain');
+//   let answer = {url: staticMapURL, location: req.query.location, trailList: parsed};
+//   res.send(answer) ;
+// }
 
 // Error Handler
 function handleError(error,response) {
