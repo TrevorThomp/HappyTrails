@@ -134,3 +134,19 @@
 .trails p {
   margin: 5px 0;
 }
+
+/* Hidden Form */
+
+.hide-me {
+  display: none;
+}
+
+.detail-button {
+  padding: 10px;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

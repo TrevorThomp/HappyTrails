@@ -12,23 +12,43 @@
 
       
     <aside id="results-container">
-          <% data.list.forEach(listitem => { %>
+          <% data.list.forEach(item => { %>
               <div class="trails">
-              <img src="<%= listitem.imgURL %>" height="150" width="250" alt="image related to this trail or campground"/>
-              <h2><%= listitem.name %></h2>
-              <p><%= listitem.summary %></p>
-              <p><%= listitem.length %></p>
-              <p><%= listitem.difficulty %></p></div>
+              <img src="<%= item.imgURL %>" height="150" width="250" alt="image related to this trail or campground"/>
+              <h2><%= item.name %></h2>
+              <p><%= item.summary %></p>
+              <p><%= item.length %></p>
+              <p>Difficulty: <%= item.difficulty.charAt(0).toUpperCase() + item.difficulty.slice(1) %></p>
 
+
+              // TODO: Refactoring this so when they Select trail it will instantly save to DB
+              <button class="detail-button select-button" type="submit">Select This Trail</button>
+              
+              
+            
+            <section class="hide-me" id="hidden-form">
+            <form action="/books" method="post" class="form-container">
+            <input type="text" name="title" value="<%= item.summary %>" required>
+            <input type="text" name="author" value="<%= item.length %>" required>
+            <input type="text" name="isbn" value="<%= item.difficult %>" required>
+            <button type="submit" class="add-button">Add to Favorites</button>
+        </form>
+      </section>
+    </div>
             <% }) %>
     </aside>
 
     <div id="map-container">
         <img src="<%= data.staticMapURL %>" alt="Map of the returned items from the search">
     </div>
+
   </main>
+
   <footer>
     <%- include('../partials/footer') %>
   </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="../../public/js/app.js"></script>
 </body>
 </html>
