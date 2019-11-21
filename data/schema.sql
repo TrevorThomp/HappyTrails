@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS locationlist, trail;
+DROP TABLE IF EXISTS trail;
 
 CREATE TABLE trail (
   id SERIAL PRIMARY KEY,
@@ -37,11 +37,6 @@ INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitu
     'An after work special for the Bend 9-to-5er or a tune-up time trial for the dedicated racer.',7009092,'green',
 4.2,'https://cdn-files.apstatic.com/hike/7007179_sqsmall_1554322332.jpg',44.0818,-121.3784,4.8,'Unknown',
 'null');
-
-INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) Select 'Shevlin Loop Trail',
-    'An after work special for the Bend 9-to-5er or a tune-up time trial for the dedicated racer.',7009092,'green',
-4.2,'https://cdn-files.apstatic.com/hike/7007179_sqsmall_1554322332.jpg',44.0818,-121.3784,4.8,'Unknown',
-'null' WHERE NOT EXISTS (SELECT trail_id from trails where trail_id = 7009092);
 
 INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('Deschutes River Hiking Trail',
     'Needs Summary',7073493,'green',
