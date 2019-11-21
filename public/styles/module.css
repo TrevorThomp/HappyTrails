@@ -1,5 +1,4 @@
 /* SEARCH FORM */
-
 #titleHeader {
   display: flex;
   align-items: flex-start;
@@ -275,16 +274,4 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
-}
-
-.social-icons {
-  border: 1px solid black;
-  border-radius: 50%;
-  padding: 7px;
-  margin: 10px;
-  transition: 1s;
-}
-
-.social-icons:hover {
-  transform: scale(1.1);
 }
