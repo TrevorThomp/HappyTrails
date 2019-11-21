@@ -16,14 +16,14 @@ CREATE TABLE trail (
 );
 
 
-CREATE TABLE locationlist (                                                                                   
-  id SERIAL PRIMARY KEY,
-  search_query VARCHAR(255),
-  latitude  DECIMAL(12,7),
-  longitude  DECIMAL(12,7),
-  miles_from DECIMAL (4,1),
-  FOREIGN KEY (id) REFERENCES trail(id)
-);
+-- CREATE TABLE locationlist (                                                                                   
+--   id SERIAL PRIMARY KEY,
+--   search_query VARCHAR(255),
+--   latitude  DECIMAL(12,7),
+--   longitude  DECIMAL(12,7),
+--   miles_from DECIMAL (4,1),
+--   FOREIGN KEY (id) REFERENCES trail(id)
+-- );
 
 
 -- INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ();
@@ -31,7 +31,7 @@ CREATE TABLE locationlist (
 -- 00, -121.3310000, 10.1);
 -- select * from trail join locationlist on trail.id = locationlist.id
 
-INSERT INTO locationlist ( search_query, latitude, longitude, miles_from) VALUES ('Bend+Oregon', 44.0396000, -121.3310000, 10.1);
+-- INSERT INTO locationlist ( search_query, latitude, longitude, miles_from) VALUES ('Bend+Oregon', 44.0396000, -121.3310000, 10.1);
 
 INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('Shevlin Loop Trail',
     'An after work special for the Bend 9-to-5er or a tune-up time trial for the dedicated racer.',7009092,'green',
@@ -57,37 +57,5 @@ INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitu
 INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('Pilot Butte Trail',
     'A steep, short climb with great views.',7005256,'greenBlue',
 3.9,'https://cdn-files.apstatic.com/hike/7004532_sqsmall_1554245535.jpg',44.0579,-121.2786,0.9,'Unknown',
-'null');
-
-INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('Tumalo Creek Trail - East',
-    'A stunningly beautiful trail along Tumalo Creek.',7047723,'green',
-4.3,'https://cdn-files.apstatic.com/hike/7007177_sqsmall_1554322327.jpg',44.0828,-121.3764,2.4,'Unknown',
-'null');
-
-INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES (
-'Deschutes River Trail: South Canyon Reach',
-    'A great trail used for hiking/walking/running next to the Deschutes River.',7020560,'greenBlue',
-4.2,'https://cdn-files.apstatic.com/hike/7022029_sqsmall_1554840665.jpg',44.0396,-121.331,2.8,'Unknown',
-'null');
-
-INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('Black Rock Trail',
-    'Hike beside a lava flow with some great views.',7036829,'greenBlue',
-4,'https://cdn-files.apstatic.com/hike/7036995_sqsmall_1555085017.jpg',43.9095,-121.3592,4.2,'Unknown',
-'null');
-
-INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('Swamp Wells (Trail 61)',
-    'Head along the North Rim of Newberry Crater to Horse Butte.',7032680,'black',
-4,'',43.7432,-121.2381,25,'Unknown',
-'null');
-
-INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES (
-'Kent''s Trail',
-    'Pines, manzanitas and a smooth trail. Gotta love it.',7037181,'greenBlue',
-4,'',44.0434,-121.386,4.1,'Unknown',
-'null');
-
-INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('KGB Trail',
-    'A beautiful trail in Phil''s trail system with nice views and some rugged sections.',7037190,'blue',
-4,'https://cdn-files.apstatic.com/hike/7037281_sqsmall_1555085648.jpg',44.0295,-121.3754,4.1,'Unknown',
 'null');
 
