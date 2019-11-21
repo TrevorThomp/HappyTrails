@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>About Us</title>
-  <link rel="stylesheet" href="../../public/styles/base.css" type="text/css">
+    <%- include('../partials/head') %>
 </head>
 <body>
 
@@ -111,18 +107,14 @@
                         addition to being user-friendly. I'm passionate about learning the newest and greatest technologies whether its
                         the frontend or backend. I'm constantly exploring ways to enhance my abilities whether that be creating
                         something fun, listening to podcasts or diving into a book.</p>
-                    <ul class="social-container">
-                        <li class="linkedin">
-                            <a href="https://www.linkedin.com/in/trevorthomp"><img class="social-icons" src="../../public/assets/linkedin (1).svg" width=40px
-                                alt="LinkedIn Icon"></a>
-                          </li>
-                          <li class="github">
-                            <a href="https://github.com/TrevorThomp"><img src="../../public/assets/github-logo.svg" width=40px alt="GitHub Icon"></a>
-                          </li>
-                          <li class="email">
-                            <a href="mailto:Trevor.Ray.Thompson@gmail.com"><img class="social-icons" src="../../public/assets/black-back-closed-envelope-shape.svg" width=40px alt="Email Icon"></a>
-                          </li>
-                    </ul>
+                        <div class="social-container">
+                            <ul class="social-container social-icons">
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-codepen"></i></a></li>
+                            </ul>
+                        </div>
                 </div>
 
               </div>
@@ -137,5 +129,6 @@
     <%- include('../partials/footer') %>
   </footer>
   
+  <script src="https://use.fontawesome.com/e501429516.js"></script>
 </body>
 </html>
