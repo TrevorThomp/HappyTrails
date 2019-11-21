@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../../public/styles/base.css">
+    <link rel="stylesheet" href="../../public/styles/reset.css">
+    <link rel="stylesheet" href="../../public/styles/results.css">
+    <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Poiret+One&display=swap" rel="stylesheet">
     <title>TrailTrek</title>
   <!-- <%- include('../partials/head') %> -->
 </head>
@@ -13,9 +15,10 @@
     <%- include('../partials/header') %>
   </header>
   <main id="main-container"> 
-    <aside id="results-container">
+    <img src="<%= data.staticMapURL %>" alt="Map of the returned items from the search" id="map">
+    <ul id="results-container">
     <% data.list.forEach(item => { %>
-      <div class="trails">
+      <li class="trails">
         <img src="<%= item.imgURL %>" height="150" width="250" alt="image related to this trail or campground"/>
           <h2><%= item.name %></h2>
             <p><%= item.summary %></p>
@@ -28,15 +31,16 @@
                 <button type="submit" class="detail-button add-button">Add to Favorites</button>
               </form>
             </section>
-      </div>
+      </li>
     <% }) %>
-    </aside>
-    <div id="map-container">
-        <img src="<%= data.staticMapURL %>" alt="Map of the returned items from the search">
-    </div>
+    </ul>
   </main>
   <footer>
-    <%- include('../partials/footer') %>
+    © GetGoing, Inc. All rights reserved. Checkout this repository @ <a href="https://github.com/TrevorThomp/HappyTrails-staging"></a>
+    <a id="send"
+    href="mailto:?Subject=Trail Huggers&Body=Check out this trail! https://DeployedSite">Share a trail with a friend!</br>
+    <img src="./img/email.svg" width=50px alt="Email" />
+    </a>
   </footer>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="../../public/js/app.js"></script>
