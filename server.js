@@ -181,7 +181,7 @@ function getOneTrail(request,response) {
 function embedOneTrail(){
   let embedURL = `https://www.google.com/maps/embed/v1/place?key=AIzaSyB1mbQHleVvGLhxIg8zRtwHDk6d_OgzXk4&q=${q}`
   let q = 'Bend+Oregon';
-//get search query for assignment to q.
+//get search query for assignment to q.  Determine where to invoke embedOneTrail - detail page.
 }
 
 function updateTrail(request,response){
