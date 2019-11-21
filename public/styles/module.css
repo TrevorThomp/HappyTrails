@@ -274,4 +274,55 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
+  font-size: 1.6em;
+}
+
+.social-icon {
+  color: black;
+  width: 10%;
+}
+
+.fa-github {
+  padding:20px 24px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition: .5s;
+  background-color: inherit;
+}
+
+.fa-github:hover {
+  color: white;
+  background-color: #3d5b99;
+}
+
+.fa-envelope {
+  padding:20px 24px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition: .5s;
+  background-color: inherit;
+}
+
+.fa-envelope:hover {
+  color: white;
+  background-color: #3d5b99;
+}
+
+.fa-linkedin {
+  padding:20px 24px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition: .5s;
+  background-color: inherit;
+}
+
+.fa-linkedin:hover {
+  color: white;
+  background-color: #3d5b99;
 }

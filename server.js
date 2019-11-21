@@ -36,10 +36,7 @@ app.use('/public', express.static('public'));
 app.set('view engine', 'ejs');
 
 // API Routes
-app.get('/', (request,response) => {
-  response.render('index')
-})
-
+app.get('/', homePage)
 app.get('/location', getLocation);
 app.post('/trails', saveTrail);
 app.get('/trails/:id', getOneTrail);
@@ -47,8 +44,6 @@ app.put('/trails/:id', updateTrail);
 app.delete('/trails/:id', deleteTrail);
 app.get('/favorites', getTrails);
 app.get('/about', aboutHandler);
-
-
 
 // Trail Constructor
 function Trail(data) {
@@ -68,6 +63,12 @@ function Trail(data) {
   this.conditionDetails = data.conditionDetails ? data.conditionDetails : 'No condition details';
 }
 
+Trail.prototype.save = function(){
+  const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id';
+  let values = Object.values(this);
+  return client.query(SQL, values);
+}
+
 // Location Constructor
 function Location(query, data) {
   this.search_query = query;
@@ -78,7 +79,6 @@ function Location(query, data) {
 Location.lookup = (handler) => {
   const SQL = 'SELECT * FROM locations WHERE search_query=$1';
   const values = [handler.query];
-
   return client.query(SQL, values)
     .then( results => {
       if (results.rowCount > 0){
@@ -90,13 +90,7 @@ Location.lookup = (handler) => {
     .catch(console.error);
 }
 
-Trail.prototype.save = function(){
-  const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id';
-  let values = Object.values(this);
-  return client.query(SQL, values);
-}
-
-
+// Campground Constructor
 function Campground(data){
   this.id = data.id;
   this.name = data.name;
@@ -108,7 +102,8 @@ function Campground(data){
   this.imgUrl = data.imgUrl;
   this.numCampsites = data.numCampsites;
 }
-//Helper Functions
+
+// Hiking Project API Pull
 function makeList(latitude,longitude,maxDistance,endpoint){
   const hikeURL = `https://www.hikingproject.com/data/${endpoint}?lat=${latitude}&lon=${longitude}&maxDistance=${maxDistance}&maxResults=10&key=${process.env.HIKING_PROJECT_API_KEY}`;
   return superagent.get(hikeURL)
@@ -119,6 +114,7 @@ function makeList(latitude,longitude,maxDistance,endpoint){
     .catch(err => console.error(err));
 }
 
+// Parses through data and creates map markers for map API
 function mapMaker(list){
   return list.reduce((staticMapURL, object) => {
     if (list.indexOf(object) + 1 !== list.length) staticMapURL += object.latitude.toString() + ',' + object.longitude.toString() + '|';
@@ -128,7 +124,7 @@ function mapMaker(list){
 }
 
 
-// Middleware
+// Convert location to lat/lon and pulls from APIS to render data
 function getLocation(req,res){
   const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
   const everythingYouCouldEverWant = {};
@@ -139,29 +135,31 @@ function getLocation(req,res){
     })
     .then( location => {
       everythingYouCouldEverWant.location = location;
-      // console.log(everythingYouCouldEverWant)
+      // console.log(everythingYouCouldEverWant.location)
+      // https://stackoverflow.com/questions/2657433/replace-space-with-dash-javascript/2657438
+      // console.log(location.search_query.replace(/\s/g , "-"));
+      //TODO: The search query could be written to the database using this replace to store the query necessary for the embedded google map.
       return makeList(location.latitude, location.longitude, req.query.maxMiles, req.query.endpoint);
     })
     .then( list => {
-      // console.log(list)
       everythingYouCouldEverWant.list = list;
       return mapMaker(list);
     })
     .then(staticMapURL => {
       everythingYouCouldEverWant.staticMapURL = staticMapURL;
-      // res.send(everythingYouCouldEverWant);
       res.render('pages/results', {data: everythingYouCouldEverWant});
     })
     .catch(err => console.error(err));
 }
 
+// Redirects after saving selected trail to database
 function saveTrail(req, res) {
-  console.log(req.body);
   let trailDetails = new Trail(JSON.parse(req.body.object));
   trailDetails.save()
     .then(res.redirect('/favorites'));
 }
 
+// Render all saved trails from database to page
 function getTrails(request, response){
   let SQL = 'SELECT * FROM trail';
   return client.query(SQL)
@@ -169,9 +167,9 @@ function getTrails(request, response){
     .catch(err =>handleError(err,response));
 }
 
+// Opens selected trail in detail view
 function getOneTrail(request,response) {
   let SQL = 'SELECT * FROM trail WHERE id=$1';
-
   let values = [request.params.id];
 
   return client.query(SQL, values)
@@ -179,6 +177,13 @@ function getOneTrail(request,response) {
     .catch(err => console.err(err))
 }
 
+function embedOneTrail(){
+  let embedURL = `https://www.google.com/maps/embed/v1/place?key=AIzaSyB1mbQHleVvGLhxIg8zRtwHDk6d_OgzXk4&q=${q}`
+  let q = 'Bend+Oregon';
+//get search query for assignment to q.  Determine where to invoke embedOneTrail - detail page.
+}
+
+// Updates Trail information in database
 function updateTrail(request,response){
   let { name, summary, difficulty, img_small, length} = request.body;
   let SQL = 'UPDATE trail SET name=$1, summary=$2, difficulty=$3, img_small=$4, length=$5 WHERE id=$6';
@@ -189,17 +194,17 @@ function updateTrail(request,response){
     .catch(err => console.error(err));
 }
 
+// Deletes selected trail from database
 function deleteTrail(request,response){
   let SQL = 'DELETE FROM trail WHERE id=$1';
   let value = [request.params.id];
-
 
   return client.query(SQL, value)
     .then(response.redirect('/'))
     .catch(err => handleError(err, response));
 }
 
-
+// Error Handler Function
 function handleError(error,response) {
   response.render('error', {error: error})
 }
@@ -207,6 +212,11 @@ function handleError(error,response) {
 // About Us Page
 function aboutHandler(request,response) {
   response.render('pages/about');
+}
+
+// Home Page
+function homePage(request,response) {
+  response.render('index');
 }
 
 // Application Listener
