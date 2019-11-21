@@ -3,10 +3,8 @@
 @import url('./module.css');
 @import url('./state.css');
 
-
-body {
-  background-image: url("/public/assets/photo-1521437687640-34c398f4e598.jpg");
-  background-size: 100%;
+html {
+  padding-bottom: 80px;
 }
 
 h1 {
@@ -20,9 +18,7 @@ body {
   padding: 0;
   color: #222222;
   font-family: "Avenir Next", "Avenir", sans-serif;
-  overflow-x: hidden;
   /* margin-bottom: 1000px;  */
-  height: 100vh;
 }
 
 a {
@@ -47,12 +43,6 @@ header {
 header div {
   height: 10vw;
 }
-
-main {
-  height: 500px;
-  display: flex;
-  
-  }
   
   form {
     width: 100%;
