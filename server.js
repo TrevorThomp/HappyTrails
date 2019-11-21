@@ -138,7 +138,10 @@ function getLocation(req,res){
     })
     .then( location => {
       everythingYouCouldEverWant.location = location;
-      // console.log(everythingYouCouldEverWant)
+      // console.log(everythingYouCouldEverWant.location)
+      // https://stackoverflow.com/questions/2657433/replace-space-with-dash-javascript/2657438
+      // console.log(location.search_query.replace(/\s/g , "-"));
+//TODO: The search query could be written to the database using this replace to store the query necessary for the embedded google map.
       return makeList(location.latitude, location.longitude, req.query.maxMiles, req.query.endpoint);
     })
     .then( list => {
