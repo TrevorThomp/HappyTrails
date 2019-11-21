@@ -179,6 +179,12 @@ function getOneTrail(request,response) {
     .catch(err => console.err(err))
 }
 
+function embedOneTrail(){
+  let embedURL = `https://www.google.com/maps/embed/v1/place?key=AIzaSyB1mbQHleVvGLhxIg8zRtwHDk6d_OgzXk4&q=${q}`
+  let q = 'Bend+Oregon';
+
+}
+
 function updateTrail(request,response){
   let { name, summary, difficulty, img_small, length} = request.body;
   let SQL = 'UPDATE trail SET name=$1, summary=$2, difficulty=$3, img_small=$4, length=$5 WHERE id=$6';

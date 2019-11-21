@@ -15,17 +15,10 @@ CREATE TABLE trail (
   conditiondetails TEXT
 );
 
-CREATE TABLE locationlist (
-  id SERIAL PRIMARY KEY,
-  search_query VARCHAR(255),
-  latitude  DECIMAL(12,7),
-  longitude  DECIMAL(12,7),
-  miles_from DECIMAL (4,1)
-);
 
 -- INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ();
 
-
+INSERT INTO locationlist ( search_query, latitude, longitude, miles_from) VALUES ('Bend+Oregon', 44.0396000, -121.3310000, 10.1);
 
 INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('Shevlin Loop Trail',
     'An after work special for the Bend 9-to-5er or a tune-up time trial for the dedicated racer.',7009092,'green',
