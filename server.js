@@ -199,10 +199,10 @@ function deleteTrail(request,response){
     .catch(err => handleError(err, response));
 }
 
-// Error Handler
-// function handleError(error,response) {
-//   response.render('error', {error: error})
-// }
+
+function handleError(error,response) {
+  response.render('error', {error: error})
+}
 
 // About Us Page
 function aboutHandler(request,response) {

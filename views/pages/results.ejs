@@ -26,8 +26,9 @@
               
               
             
-            <section class="hide-me form-container" id="hidden-form">
-            <form action="/trails" method="post">
+
+            <section class="hide-me hidden-form">
+            <form action="/trails" method="post" class="form-container">
             <input type='text' name='object' value='<%= JSON.stringify(item) %>' hidden='true'>
             <button type="submit" class="detail-button add-button">Add to Favorites</button>
         </form>
