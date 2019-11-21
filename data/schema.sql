@@ -16,7 +16,20 @@ CREATE TABLE trail (
 );
 
 
+CREATE TABLE locationlist (                                                                                   
+  id SERIAL PRIMARY KEY,
+  search_query VARCHAR(255),
+  latitude  DECIMAL(12,7),
+  longitude  DECIMAL(12,7),
+  miles_from DECIMAL (4,1),
+  FOREIGN KEY (id) REFERENCES trail(id)
+);
+
+
 -- INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ();
+-- INSERT INTO locationlist (id, search_query, latitude, longitude, miles_from) VALUES (5,'Bend+Oregon', 44.03960
+-- 00, -121.3310000, 10.1);
+-- select * from trail join locationlist on trail.id = locationlist.id
 
 INSERT INTO locationlist ( search_query, latitude, longitude, miles_from) VALUES ('Bend+Oregon', 44.0396000, -121.3310000, 10.1);
 

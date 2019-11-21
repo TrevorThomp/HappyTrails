@@ -78,7 +78,6 @@ function Location(query, data) {
 Location.lookup = (handler) => {
   const SQL = 'SELECT * FROM locations WHERE search_query=$1';
   const values = [handler.query];
-
   return client.query(SQL, values)
     .then( results => {
       if (results.rowCount > 0){
@@ -182,7 +181,7 @@ function getOneTrail(request,response) {
 function embedOneTrail(){
   let embedURL = `https://www.google.com/maps/embed/v1/place?key=AIzaSyB1mbQHleVvGLhxIg8zRtwHDk6d_OgzXk4&q=${q}`
   let q = 'Bend+Oregon';
-
+//get search query for assignment to q.
 }
 
 function updateTrail(request,response){
