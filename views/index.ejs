@@ -8,23 +8,22 @@
   <%- include('./partials/header') %>
 </header>
 <main>
-  <h1>Find Trails</h1>
+  <h1 id="form-title">Find Trails</h1>
   <section id="searchCont">
 
       <form id="search-form" action="/location">
-        <label for="input-search">Search for a location</label>
-        <input type="text" name="data" id="input-search" placeholder="Enter a location here" required="true">
-        <input type="number" name="maxMiles" id="input-number" value="10" step="0.1" required="true">
-        <label for="trails-radio">Trails</label>
-        <input type="radio" name="endpoint" id="trails-radio" value="get-trails" checked>
-        <label for="campgrounds-radio">Campgrounds</label>
-        <input type="radio" name="endpoint" id="campgrounds-radio" value="get-campgrounds">
+        <input type="text" name="data" id="input-search" placeholder="Enter a location here" required="true" autofocus="true">
+        <input type="number" name="maxMiles" id="input-number" required="true" max="3000" placeholder="Miles">
+        <select name="endpoint" id="search-form-select">
+          <option value="get-trails">Trails</option>
+          <option value="get-campgrounds">Campgrounds</option>
+        </select>
+        <!-- <input type="radio" name="endpoint" id="trails-radio" value="get-trails" checked> -->
+        <!-- <input type="radio" name="endpoint" id="campgrounds-radio" value="get-campgrounds"> -->
         <button type="submit" id="button-submit">Explore!</button>
       </form>
 
 </main>
-  <footer>
     <%- include('./partials/footer') %>
-  </footer>
 </body>
 </html>
