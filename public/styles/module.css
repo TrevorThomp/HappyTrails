@@ -275,3 +275,21 @@
   align-items: center;
   flex-direction: row;
 }
+
+.social-icon {
+  color: white;
+}
+
+.fa-github {
+  padding:20px 24px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition: .5s;
+  background-color: inherit;
+}
+
+.fa-github:hover {
+  background-color: #3d5b99;
+}
