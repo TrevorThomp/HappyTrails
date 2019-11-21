@@ -7,6 +7,7 @@
   <header>
     <%- include('../partials/header') %>
   </header>
+
   <main id="main-container"> 
     <img src="<%= data.staticMapURL %>" alt="Map of the returned items from the search" id="map">
     <ul id="results-container">
@@ -18,6 +19,7 @@
             <p><%= item.length %> miles</p>
             <p>Difficulty: <%= item.difficulty.charAt(0).toUpperCase() + item.difficulty.slice(1) %></p>
             <button class="detail-button select-button">Select This Trail</button>
+
             <section class="hide-me hidden-form">
               <form action="/trails" method="post" class="form-container">
                 <input type='text' name='object' value='<%= JSON.stringify(item) %>' hidden='true'>
