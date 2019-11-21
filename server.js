@@ -78,7 +78,6 @@ function Location(query, data) {
 Location.lookup = (handler) => {
   const SQL = 'SELECT * FROM locations WHERE search_query=$1';
   const values = [handler.query];
-
   return client.query(SQL, values)
     .then( results => {
       if (results.rowCount > 0){
@@ -139,7 +138,10 @@ function getLocation(req,res){
     })
     .then( location => {
       everythingYouCouldEverWant.location = location;
-      // console.log(everythingYouCouldEverWant)
+      // console.log(everythingYouCouldEverWant.location)
+      // https://stackoverflow.com/questions/2657433/replace-space-with-dash-javascript/2657438
+      // console.log(location.search_query.replace(/\s/g , "-"));
+//TODO: The search query could be written to the database using this replace to store the query necessary for the embedded google map.
       return makeList(location.latitude, location.longitude, req.query.maxMiles, req.query.endpoint);
     })
     .then( list => {
@@ -177,6 +179,12 @@ function getOneTrail(request,response) {
   return client.query(SQL, values)
     .then(result => response.render('pages/trails/detail', {result: result.rows[0]}))
     .catch(err => console.err(err))
+}
+
+function embedOneTrail(){
+  let embedURL = `https://www.google.com/maps/embed/v1/place?key=AIzaSyB1mbQHleVvGLhxIg8zRtwHDk6d_OgzXk4&q=${q}`
+  let q = 'Bend+Oregon';
+//get search query for assignment to q.  Determine where to invoke embedOneTrail - detail page.
 }
 
 function updateTrail(request,response){
