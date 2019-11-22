@@ -15,12 +15,12 @@
 }
 
 /* Results Page Layout */
-#results-body{
+#results-body, #favorites-body{
   width: 100vw;
   height: 100%;
 }
 
-#results-main{
+#results-main, #favorites-main{
   background-color: #3C3C3C;
   width: 100%;
 }
@@ -70,60 +70,14 @@
   margin-bottom: 3%;
 }
 
-/* .main-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 50px;
-} */
-
-/* Map and Aside Structure */
-
-/* #main-container {
-  display: grid;
-  grid-template-columns: 40% 60%;
-  grid-template-rows: 1fr;
-} */
-
-  /* #results-container {
-    margin-top: 20px;
-    margin-left: 20px;
-    width: 100%;
-  } */
-
-  /* #map-container {
-    width: 70%;
-    height: 300px;
-    margin: 50px 0px;
-  } */
-
-  /* #map-container img {
-    width: 100%;
-    margin-left: 40px;
-  } */
-
-  /* #title {
-    background-color: #626E60;
-    font-size: 3em;
-    text-align: center;
-  } */
-
-  /* .trails {
-    width: 50%;
-    color: #3C3C3C;
-    border: 1%;
-    margin: 5px;
-  } */
-
-/* .detail-button .select-button {
-  background-color:  rgb(17, 150, 17);
-} */
-
 /* Favorites Layout */
-#favorites-body {
+#favorites-title{
   background-color:#945D60;
-  height: 100%;
+  text-align: center;
+  font-size: 2em;
+  color: antiquewhite;
+  padding: 1% 0;
+  font-family: 'Staatliches', cursive;
 }
 
 
