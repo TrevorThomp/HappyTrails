@@ -59,8 +59,14 @@
 
   /* Favorites Container */
 
-  #favorites-container {
-    flex-wrap: nowrap;
+  #favorites-contaier {
+    display: flex;
+    justify-content: center;
+  }
+
+  .fav-trails {
+    width: 25%;
+    margin-bottom: 30px;
   }
 
   #results-main {
