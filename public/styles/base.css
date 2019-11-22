@@ -1,6 +1,6 @@
 @import url('./reset.css');
-@import url('./layout.css');
 @import url('./module.css');
+@import url('./layout.css');
 @import url('./state.css');
 
 html{
@@ -20,8 +20,6 @@ footer{
 
 a {
   text-decoration: none;
-  color: #232323;
-  transition: color 0.3s ease;
 }
 
 footer a{
