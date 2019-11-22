@@ -21,12 +21,12 @@
     <section id="favorites-container">
       <% trails.forEach(item => { %>
         <div class="trails">
-          <img src="<%= item.img_small%>" alt="Picture of a trail">
-          <h2><%= item.name %></h2>
-          <p><%= item.summary %></p>
-          <p>Difficulty: <%= item.difficulty %></p>
-          <p><%= item.length %> miles</p>
-          // <button class="detail-button select-button" type="submit" onclick="location.href = '/trails/<%= item.id %>'">View Details</button>
+          <img class="trail-item" src="<%= item.img_small%>" alt="Picture of a trail">
+          <h2 class="trail-item"><%= item.name %></h2>
+          <p class="trail-item"><%= item.summary %></p>
+          <p class="trail-item">Difficulty: <%= item.difficulty %></p>
+          <p class="trail-item"><%= item.length %> miles</p>
+          <button class="detail-button select-button trail-item" type="submit" onclick="location.href = '/trails/<%= item.id %>'">View Details</button>
         </div>
     <%  }); %>
     </section>

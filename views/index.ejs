@@ -1,29 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <%- include('./partials/head') %>
-</head>
-<body>
-<header>
+<%- include('./partials/head') %>
+<body id="index-body">
   <%- include('./partials/header') %>
-</header>
-<main>
-  <h1 id="form-title">Find Trails</h1>
+<main id="index-main">
+  <h1 id="form-title">Get Going!</h1>
   <section id="searchCont">
 
       <form id="search-form" action="/location">
-        <input type="text" name="data" id="input-search" placeholder="Enter a location here" required="true" autofocus="true">
-        <input type="number" name="maxMiles" id="input-number" required="true" max="3000" placeholder="Miles">
-        <select name="endpoint" id="search-form-select">
+        <input type="text" name="data" id="input-search" placeholder="Enter a location here" required="true" autofocus="true" class="search-form-inputs">
+        <input type="number" name="maxMiles" id="input-number" required="true" max="3000" placeholder="Miles" class="search-form-inputs">
+        <select name="endpoint" id="search-form-select" class="search-form-inputs">
           <option value="get-trails">Trails</option>
           <option value="get-campgrounds">Campgrounds</option>
         </select>
-        <!-- <input type="radio" name="endpoint" id="trails-radio" value="get-trails" checked> -->
-        <!-- <input type="radio" name="endpoint" id="campgrounds-radio" value="get-campgrounds"> -->
         <button type="submit" id="button-submit">Explore!</button>
       </form>
-
 </main>
-    <%- include('./partials/footer') %>
+  <%- include('./partials/footer') %>
 </body>
 </html>

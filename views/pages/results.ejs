@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <%- include('../partials/head') %>
-</head>
-<body>
-  <header>
+<%- include('../partials/head') %>
+<body id="results-body">
     <%- include('../partials/header') %>
-  </header>
-
-  <main id="main-container"> 
+  <main id="results-main"> 
     <img src="<%= data.staticMapURL %>" alt="Map of the returned items from the search" id="map">
     <ul id="results-container">
     <% data.list.forEach(item => { %>
       <li class="trails">
-        <img src="<%= item.imgURL %>" height="150" width="250" alt="image related to this trail or campground"/>
-          <h2><%= item.name %></h2>
-            <p><%= item.summary %></p>
-            <p><%= item.length %> miles</p>
-            <p>Difficulty: <%= item.difficulty.charAt(0).toUpperCase() + item.difficulty.slice(1) %></p>
-            <button class="detail-button select-button">Select This Trail</button>
+        <img src="<%= item.imgURL %>" height="150" width="250" alt="image related to this trail or campground" class="trail-item"/>
+          <h2 class="trail-item"><%= item.name %></h2>
+            <p class="trail-item"><%= item.summary %></p>
+            <p class="trail-item"><%= item.length %> miles</p>
+            <p class="trail-item">Difficulty: <%= item.difficulty.charAt(0).toUpperCase() + item.difficulty.slice(1) %></p>
+            <button class="detail-button select-button trail-item">Select This Trail</button>
 
             <section class="hide-me hidden-form">
               <form action="/trails" method="post" class="form-container">
@@ -30,13 +25,7 @@
     <% }) %>
     </ul>
   </main>
-  <footer>
-    © GetGoing, Inc. All rights reserved. Checkout this repository @ <a href="https://github.com/TrevorThomp/HappyTrails-staging"></a>
-    <a id="send"
-    href="mailto:?Subject=Trail Huggers&Body=Check out this trail! https://DeployedSite">Share a trail with a friend!</br>
-    <img src="./img/email.svg" width=50px alt="Email" />
-    </a>
-  </footer>
+  <%- include('../partials/footer') %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="../../public/js/app.js"></script>
 </body>

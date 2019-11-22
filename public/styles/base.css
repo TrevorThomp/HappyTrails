@@ -7,49 +7,39 @@ html{
   height:100%;
 }
 
-body{
-  box-sizing: border-box;
-  display: flex;
-  flex-flow: column nowrap;
-  height: 100%;
-}
-
-header{
-height: 20%;
-background-color: #626E60;
-}
-
-main{
-  text-align: center;
-  height: 60%;
-  padding-top: 50%;
-  background-image: url(../assets/steve-halama-jMlgFOiJLXc-unsplash.jpg);
-  background-size: 100%;
-  background-repeat: no-repeat;
-}
-#form-title{
-  font-size: 2em;
-  margin-bottom: 2%;
-  color:#fff;
-
-#input-number{
-  width: 10%;
-}
-
-#button-submit{
-  font-size: 2em;
-  margin-top: 2%;
-}
-
 footer{
-  text-align: center;
   height: 20%;
   background-color: #626E60;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Staatliches', cursive;
+  color: antiquewhite;
 }
 
-#github-link{
-  font-size: 3em;
+a {
+  text-decoration: none;
+  color: #232323;
+  transition: color 0.3s ease;
 }
+
+footer a{
+  color: antiquewhite;
+}
+button {
+  background: #AF473C;
+  border: 1px solid #AF473C;
+  color: #fff;
+  padding: 0 5%;
+  border-radius: 25px;
+}
+
+button:active {
+  border: 20% solid #fff;
+} 
+
+
 /* NAV MENU */
 
 /* body {
@@ -66,102 +56,3 @@ footer{
   color: #232323;
   transition: color 0.3s ease;
 } */
-
-
-a {
-  text-decoration: none;
-  color: #232323;
-  transition: color 0.3s ease;
-}
-
-header {
-  background-color: #d3e5ff;
-  width: 100%;
-  height: 75px;
-  top: 0;
-  box-shadow: 0px 0px 6px 0px #444;
-  grid-area: header;
-} */
-
-/* header div {
-  height: 10vw;
-} */
-  
-/* #search-form{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  height: 30px;
-  border-radius: 25px;
-} */
-  
-  /* input {
-    border-radius: 25px;
-  } */
-  
-button {
-  background: #AF473C;
-  border: 1px solid #AF473C;
-  color: #fff;
-  padding: 0 30px;
-  cursor: pointer;
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  transition: all 0.2s;
-  border-radius: 25px;
-}
-  
-  form {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    height: 30px;
-    border-radius: 25px;
-  }
-  
-  input {
-    border-radius: 25px;
-  
-  }
-  
-  button {
-    background: #ef3f5a;
-    border: 1px solid #ef3f5a;
-    color: #fff;
-    padding: 0 30px;
-    cursor: pointer;
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    transition: all 0.2s;
-    border-radius: 25px;
-    
-  }
-  
-  button:hover {
-    background: #d73851;
-    border: 1px solid #d73851;
-  }
-  
-
-/* button:active{
-  border:
-} */
-/*   
-  button:hover {
-    background: #d73851;
-    border: 1px solid #d73851;
-  }
-   */
-
-/* footer {
-  background-color: rgb(56, 56, 56);
-  height: 75px;
-  width: 100%;
-  color: #fff;
-  margin-top: 50px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  color: white;
-} */
-
