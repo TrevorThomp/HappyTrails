@@ -73,6 +73,7 @@ header{
 
 #search-form-select{
   width: 40%;
+  font-size: 0.9em;
 }
 
 #input-search{
@@ -87,6 +88,10 @@ header{
   font-size: 2em;
   margin-top: 5%;
   color: antiquewhite;
+}
+
+#button-submit:hover {
+  cursor: pointer;
 }
 
 /* Footer */
@@ -126,13 +131,17 @@ img.trail-item{
   color: antiquewhite;
 }
 
+.detail-button:hover {
+  cursor: pointer;
+}
+
 .detail-button > a{
   color: antiquewhite;
 }
 
 #detail-container {
   width: 100vw;
-  height: 80vh;
+  padding: 15px;
   background-color: #3c3c3c;
   color: antiquewhite;
   font-family: Staatliches, cursive;
@@ -151,6 +160,19 @@ img.trail-item{
   text-align: center;
   padding: 0 5%;
   font-size: 1.2em;
+}
+
+#trail-detail img {
+  padding: 15px;
+}
+
+#trail-detail h2 {
+  margin-bottom: 10px;
+  font-size: 1.3em;
+}
+
+#trail-detail p {
+  margin: 10px;
 }
 
 #detail-image{

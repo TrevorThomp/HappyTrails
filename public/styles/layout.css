@@ -29,6 +29,7 @@
   width: 80%;
   height: auto;
   margin: 10% 10%;
+  grid-area: map;
 }
 
 #results-container{
@@ -36,6 +37,7 @@
   width: 100%;
   display: flex;
   flex-flow:row wrap;
+  grid-area: aside;
 }
 
 .trails{

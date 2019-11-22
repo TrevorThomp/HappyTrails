@@ -1,6 +1,15 @@
 /* Media Query Updating */
 @media (min-width: 768px) {
 
+  body {
+    padding-bottom: 60px;
+    height: 95vh;
+  }
+
+  footer {
+    height: 10%;
+  }
+
   /* About Us Page */
   .abt-main-container {
     display: flex;
@@ -47,5 +56,34 @@
     padding: 20px;
     margin-bottom: 0;
     margin-top: 50px;
+  }
+
+  /* Favorites Container */
+
+  #favorites-container {
+    flex-wrap: nowrap;
+  }
+
+  #detail-container {
+    height: 60vh;
+  }
+
+  #results-main {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: 1fr;
+    grid-template-areas: 'aside map'
+    ;
+  }
+
+  #results-container {
+    margin: 30px;
+  }
+
+  #map {
+    width: 60%;
+    margin-left: 100px;
+    margin: 70px;
+    padding-left: 150px;
   }
 }
