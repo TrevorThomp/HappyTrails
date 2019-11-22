@@ -1,8 +1,11 @@
 /* Media Query Updating */
 @media (min-width: 768px) {
-  .main-container {
+  .abt-main-container {
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
   }
 
   .about-container {
