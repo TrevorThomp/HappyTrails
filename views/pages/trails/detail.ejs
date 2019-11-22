@@ -12,15 +12,16 @@
         <p><%= result.summary %></p>
         <p>Difficulty: <%= result.difficulty %></p>
         <p><%= result.length %> miles</p>
-        <button class="detail-button"><a href="">Update Details</a></button>
+        <button class="detail-button btn-update"><a href="">Update Details</a></button>
+        <section class="hide-me form-container" id="hidden-form">
+          <%- include('./form', { formAction: 'update', result: result}) %>
+        </section>
         <form action="/trails/<%= result.id %>" method="post">
           <input type="hidden" name="_method" value="delete">
-          <button class="detail-button"><a href="">Delete Trail From Favorites</a></button>
+          <button class="detail-button">Delete Trail From Favorites</button>
         </form>
       </div>
-    <section class="hide-me form-container" id="hidden-form">
-      <%- include('./form', { formAction: 'update', result: result}) %>
-    </section>
+
   </main>
 
   

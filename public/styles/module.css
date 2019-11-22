@@ -1,25 +1,16 @@
 /* Header */
-header{
-  height: 20%;
-  background-color: #626E60;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  align-items: center;
-}
-
 #titleHeader{
   font-size: 3em;
   font-family: 'Staatliches', cursive;
   color: antiquewhite;
   width: 40%;
   height: 50%;
-  padding-top: 10%;
+  padding-top: 20px;
 }
 
 #mountain-icon{
   background-color: antiquewhite;
-  width: 30%;
+  width: 20%;
   height: 50%;
 }
 
@@ -33,6 +24,7 @@ header{
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-evenly;
+  padding: 20px;
 }
 
 #nav-menu a{
@@ -62,6 +54,7 @@ header{
   color: antiquewhite;
   width: 100%;
   background-color: rgb(51, 51, 51);
+  margin-top: 30px;
 }
 
 #search-form{
@@ -73,6 +66,7 @@ header{
 
 #search-form-select{
   width: 40%;
+  font-size: 0.9em;
 }
 
 #input-search{
@@ -87,6 +81,10 @@ header{
   font-size: 2em;
   margin-top: 5%;
   color: antiquewhite;
+}
+
+#button-submit:hover {
+  cursor: pointer;
 }
 
 /* Footer */
@@ -126,13 +124,17 @@ img.trail-item{
   color: antiquewhite;
 }
 
+.detail-button:hover {
+  cursor: pointer;
+}
+
 .detail-button > a{
   color: antiquewhite;
 }
 
 #detail-container {
   width: 100vw;
-  height: 80vh;
+  padding: 30px 0;
   background-color: #3c3c3c;
   color: antiquewhite;
   font-family: Staatliches, cursive;
@@ -151,13 +153,40 @@ img.trail-item{
   text-align: center;
   padding: 0 5%;
   font-size: 1.2em;
+  color:  antiquewhite;
+  border: 5px solid  #945D60;
+  border-radius: 10%;
+  background-color: #626E60;
+  font-family: 'Staatliches', cursive;
+  font-size: 1.3em;
+  line-height: 1.4em;
+}
+
+#trail-detail img {
+  padding: 15px;
+}
+
+#trail-detail h2 {
+  margin-bottom: 10px;
+  font-size: 1.3em;
+}
+
+#trail-detail p {
+  margin: 10px;
 }
 
 #detail-image{
   width: 40%;
   height: auto;
 }
-/* Start of about-us styling? */
+/* About Us Styling */
+.abt-main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .about-container {
   width: 90%;
   height: 320px;
@@ -200,6 +229,8 @@ img.trail-item{
   backface-visibility: hidden;
   overflow: hidden;
   color: #000;
+  background-color: #626E60;
+  color: antiquewhite;
 }
 
 .front h2 {
@@ -220,6 +251,8 @@ img.trail-item{
   color: #333;
   text-align: center;
   transform: rotateY(180deg);
+  background-color: #626E60;
+  color: antiquewhite;
 }
 
 .back-content {
@@ -258,11 +291,12 @@ img.trail-item{
   -webkit-transition:.5s;
   transition: .5s;
   background-color: inherit;
+  color: antiquewhite;
 }
 
 .fa-github:hover {
   color: white;
-  background-color: #3d5b99;
+  background-color: black;
 }
 
 .fa-envelope {
@@ -273,11 +307,12 @@ img.trail-item{
   -webkit-transition:.5s;
   transition: .5s;
   background-color: inherit;
+  color: antiquewhite;
 }
 
 .fa-envelope:hover {
   color: white;
-  background-color: #3d5b99;
+  background-color: red
 }
 
 .fa-linkedin {
@@ -288,6 +323,7 @@ img.trail-item{
   -webkit-transition:.5s;
   transition: .5s;
   background-color: inherit;
+  color: antiquewhite;
 }
 
 .fa-linkedin:hover {
@@ -295,3 +331,10 @@ img.trail-item{
   background-color: #3d5b99;
 }
 
+/* Update Form */
+
+#update-form input {
+  padding: 20px;
+  width: 70%;
+  margin-bottom: 20px;
+}

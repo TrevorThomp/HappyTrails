@@ -7,8 +7,19 @@ html{
   height:100%;
 }
 
-footer{
+header{
   height: 20%;
+  max-height: 150px;
+  background-color: #626E60;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+footer{
+  height: 15%;
   background-color: #626E60;
   display: flex;
   flex-flow: row wrap;
@@ -36,21 +47,3 @@ button {
 button:active {
   border: 20% solid #fff;
 } 
-
-
-/* NAV MENU */
-
-/* body {
-  height:100%;
-  margin: 0;
-  padding: 0;
-  color: #222222;
-  font-family: "Avenir Next", "Avenir", sans-serif;
-  margin-bottom: 1000px; 
-} */
-
-/* a {
-  text-decoration: none;
-  color: #232323;
-  transition: color 0.3s ease;
-} */
