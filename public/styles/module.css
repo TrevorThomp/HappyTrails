@@ -338,3 +338,10 @@ img.trail-item{
   background-color: #3d5b99;
 }
 
+/* Update Form */
+
+#update-form input {
+  padding: 20px;
+  width: 70%;
+  margin-bottom: 20px;
+}
