@@ -1,5 +1,7 @@
 /* Media Query Updating */
 @media (min-width: 768px) {
+
+  /* About Us Page */
   .abt-main-container {
     display: flex;
     flex-direction: row;
@@ -15,5 +17,35 @@
   .front img {
     width: 30%;
     border-radius: 20%;
+  }
+
+  /* Header */
+
+  header {
+    flex-flow: row;
+    height: 10%;
+  }
+
+  #mountain-icon {
+    width: 5%;
+    margin-left: 15px;
+  }
+
+  #titleHeader {
+    padding-top: 5px;
+    margin-left: 20px;
+  }
+
+  #nav-menu a {
+    font-size: 1.3em;
+  }
+
+
+  /* Index Page */
+
+  #form-title {
+    padding: 20px;
+    margin-bottom: 0;
+    margin-top: 50px;
   }
 }
