@@ -5,6 +5,7 @@
   <header>
     <%- include('../../partials/header') %>
   </header>
+
   <main class="detail-container">
     <section id="result-container">
       <div id="trail-detail">
@@ -17,18 +18,16 @@
           <button class="btn-update"><a href="">Update Details</a></button>
           <form action="/trails/<%= result.id %>" method="post">
             <input type="hidden" name="_method" value="delete">
-            <button class="update-btn"><a href="">Delete Book</a></button>
+            <button class="update-btn"><a href="">Delete Trail From Favorites</a></button>
           </form>
         </div>
       </div>
     </section>
   </main>
+
   <section class="hide-me form-container" id="hidden-form">
     <%- include('./form', { formAction: 'update', result: result}) %>
   </section>
-    <div id="button-wrapper">
-      <button class="detail-button"><a href="/">Home Page</a></button>
-    </div>
   <footer>
     <%- include('../../partials/footer') %>
   </footer>
