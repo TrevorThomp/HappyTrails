@@ -57,8 +57,10 @@
 
   #form-title {
     padding: 20px;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 50px;
     margin-bottom: 50px;
-    width: 50%;
   }
 
   /* Favorites Container */
