@@ -6,6 +6,10 @@
     height: 95vh;
   }
 
+  footer {
+    padding-bottom: 20px;
+  }
+
   #index-main {
     height: 100%;
   }
