@@ -86,6 +86,7 @@ header{
 #button-submit{
   font-size: 2em;
   margin-top: 5%;
+  color: antiquewhite;
 }
 
 /* Footer */
@@ -122,44 +123,40 @@ img.trail-item{
   font-size: 1em;
   font-family: 'Rammetto One', cursive;
   box-shadow: 0.2em 0.2em hsla(6, 49%, 24%, 0.9);
+  color: antiquewhite;
 }
 
-.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.detail-button > a{
+  color: antiquewhite;
 }
 
-/* .form-input {
-  width: 50%;
+#detail-container {
+  width: 100vw;
+  height: 80vh;
+  background-color: #3c3c3c;
+  color: antiquewhite;
+  font-family: Staatliches, cursive;
 }
-
-.form-container input{
-  width: 100%;
-  padding: 15px;
-  margin-bottom: 15px;
-} */
 
 #view-detail-button {
   padding: 10px;
 }
 
-.detail-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
 #trail-detail {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
-  background-color: white;
+  height: 100%;
+  text-align: center;
+  padding: 0 5%;
+  font-size: 1.2em;
 }
 
+#detail-image{
+  width: 40%;
+  height: auto;
+}
 /* Start of about-us styling? */
 .about-container {
   width: 90%;
