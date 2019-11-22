@@ -12,10 +12,12 @@ header{
   font-size: 3em;
   font-family: 'Staatliches', cursive;
   padding-left: 5%;
+  color: antiquewhite
 }
 
 #mountain-icon{
-  padding-left: 2%;
+  padding:0 2%;
+  background-color: antiquewhite;
 }
 
 /* SEARCH FORM */
@@ -26,11 +28,10 @@ header{
 
 #form-title{
   font-size: 2em;
-  margin: 0 25% 5% 25%;
+  margin-bottom: 5%;
   color: #fff;    
-  width: 50%;
+  width: 100%;
   background-color: rgb(51, 51, 51);
-  border-radius: 25px;
 }
 
 #search-form{
@@ -71,6 +72,11 @@ header{
   font-size: 3em;
 }
 
+/* Result Cards */
+img.trail-item{
+  width: auto;
+}
+
 /* NAV MENU */
 #menuToggle {
   display: block;
@@ -101,7 +107,7 @@ header{
   height: 4px;
   margin-bottom: 5px;
   position: relative;
-  background: #232323;
+  background: antiquewhite;
   border-radius: 3px;
   z-index: 1;
   transform-origin: 4px 0px;
@@ -251,14 +257,7 @@ header{
   background-color: white;
 }
 
-.main-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 50px;
-}
-
+/* Start of about-us styling? */
 .about-container {
   width: 90%;
   height: 320px;

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('./partials/head') %>
-<body>
+<body id="index-body">
   <%- include('./partials/header') %>
-<main>
-  <h1 id="form-title">Find Trails</h1>
+<main id="index-main">
+  <h1 id="form-title">Get Going!</h1>
   <section id="searchCont">
 
       <form id="search-form" action="/location">
@@ -16,7 +16,6 @@
         </select>
         <button type="submit" id="button-submit">Explore!</button>
       </form>
-
 </main>
   <%- include('./partials/footer') %>
 </body>

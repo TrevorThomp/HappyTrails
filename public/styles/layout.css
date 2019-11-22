@@ -1,58 +1,133 @@
+/* Index Page Layout */
+#index-main{
+  text-align: center;
+  height: 60%;
+  padding-top: 35%;
+  background-image: url(../assets/steve-halama-jMlgFOiJLXc-unsplash.jpg);
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
 
-  /* Map and Aside Structure */
+#index-body{
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+}
 
-#main-container {
+/* Results Page Layout */
+#results-body{
+  width: 100vw;
+}
+
+#results-main{
+  background-color: #3C3C3C;
+  width: 100%;
+}
+
+#map{
+  width: 80%;
+  height: auto;
+  margin: 10% 10%;
+}
+
+#results-container{
+  min-height: 60%;
+  width: 100%;
+  display: flex;
+  flex-flow:row wrap;
+}
+
+.trails{
+  width: 95%;
+  margin: 0 2.5%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  color:  antiquewhite;
+  margin-bottom: 10%;
+  border: 5px solid  #945D60;
+  border-radius: 10%;
+  background-color: #626E60;
+}
+
+.trails p{
+  max-width: 90%;
+}
+
+.trails img{
+  margin-top: 3%;
+  border-radius: 10%;
+  max-height: 100px;
+}
+
+.trail-item{
+  margin-bottom: 3%;
+}
+/* .main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+} */
+
+/* Map and Aside Structure */
+
+/* #main-container {
   display: grid;
   grid-template-columns: 40% 60%;
   grid-template-rows: 1fr;
-}
+} */
 
-  #results-container {
+  /* #results-container {
     margin-top: 20px;
     margin-left: 20px;
     width: 100%;
-  }
+  } */
 
-  #map-container {
+  /* #map-container {
     width: 70%;
     height: 300px;
     margin: 50px 0px;
-  }
+  } */
 
-  #map-container img {
+  /* #map-container img {
     width: 100%;
     margin-left: 40px;
-  }
+  } */
 
-  /* TERRACOTTA #945D60
-HERB #626E60
-CHILLI #AF473C
-CHARCHOAL #3C3C3C */
-  #favorites-body {
-background-color:#945D60;
-  }
-
-  #title {
+  /* #title {
     background-color: #626E60;
     font-size: 3em;
     text-align: center;
-  }
+  } */
 
-  #favorites-container {
-    width: 100%;
-    padding: 1%;
-    background-color: #3C3C3C;
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .trails {
+  /* .trails {
     width: 50%;
     color: #3C3C3C;
     border: 1%;
     margin: 5px;
+  } */
+
+/* .detail-button .select-button {
+  background-color:  rgb(17, 150, 17);
+} */
+
+/* Favorites Layout */
+  #favorites-body {
+background-color:#945D60;
   }
 
-  .detail-button .select-button {
-    background-color:  rgb(17, 150, 17);
-  }
+
+#favorites-container {
+  width: 100%;
+  padding: 1%;
+  background-color: #3C3C3C;
+  display: flex;
+  flex-wrap: wrap;
+}
+  
+

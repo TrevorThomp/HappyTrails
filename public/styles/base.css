@@ -7,22 +7,6 @@ html{
   height:100%;
 }
 
-body{
-  box-sizing: border-box;
-  display: flex;
-  flex-flow: column nowrap;
-  height: 100%;
-}
-
-main{
-  text-align: center;
-  height: 60%;
-  padding-top: 35%;
-  background-image: url(../assets/steve-halama-jMlgFOiJLXc-unsplash.jpg);
-  background-size: auto 100%;
-  background-repeat: no-repeat;
-}
-
 footer{
   height: 20%;
   background-color: #626E60;
@@ -31,6 +15,7 @@ footer{
   align-items: center;
   justify-content: center;
   font-family: 'Staatliches', cursive;
+  color: antiquewhite;
 }
 
 a {
@@ -39,15 +24,14 @@ a {
   transition: color 0.3s ease;
 }
 
+footer a{
+  color: antiquewhite;
+}
 button {
   background: #AF473C;
   border: 1px solid #AF473C;
   color: #fff;
   padding: 0 5%;
-  border-radius: 25px;
-}
-  
-input {
   border-radius: 25px;
 }
 
