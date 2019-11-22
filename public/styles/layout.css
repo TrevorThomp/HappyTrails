@@ -121,9 +121,10 @@
 } */
 
 /* Favorites Layout */
-  #favorites-body {
-background-color:#945D60;
-  }
+#favorites-body {
+  background-color:#945D60;
+  height: 100%;
+}
 
 
 #favorites-container {
