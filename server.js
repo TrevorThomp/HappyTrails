@@ -52,7 +52,7 @@ function Trail(data) {
   this.name = data.name ? data.name : 'No name available';
   this.summary = data.summary ? data.summary : 'No summary available';
   this.trail_id = data.id;
-  this.difficulty = data.difficulty ? data.difficulty : 'No difficulty available';
+  this.difficulty = data.difficulty === 'green' || data.difficulty === 'greenBlue' ? 'Easy' : data.difficulty === 'blue' ? 'Intermediate' : data.difficulty === 'blueBlack' ? 'Hard' : 'Expert';
   this.stars = data.stars ? data.stars : '';
   this.imgURL = data.imgSmallMed ? data.imgSmallMed.replace(httpRegex, 'https://') : placeholder;
   this.latitude = data.latitude;
