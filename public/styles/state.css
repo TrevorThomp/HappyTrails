@@ -21,6 +21,7 @@
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
+    height: 80%;
   }
 
   .about-container {
@@ -68,6 +69,7 @@
   #favorites-container {
     display: flex;
     justify-content: center;
+    height: 65%;
   }
 
   .fav-trails {
