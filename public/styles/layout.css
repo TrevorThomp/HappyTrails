@@ -1,10 +1,9 @@
 /* Index Page Layout */
 #index-main{
   text-align: center;
-  height: 60%;
-  padding-top: 35%;
+  height: 61%;
   background-image: url(../assets/steve-halama-jMlgFOiJLXc-unsplash.jpg);
-  background-size: auto 100%;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 
