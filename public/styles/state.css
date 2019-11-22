@@ -64,10 +64,6 @@
     flex-wrap: nowrap;
   }
 
-  #detail-container {
-    height: 60vh;
-  }
-
   #results-main {
     display: grid;
     grid-template-columns: 30% 70%;
@@ -85,5 +81,27 @@
     margin-left: 100px;
     margin: 70px;
     padding-left: 150px;
+  }
+
+  /* Detail Display */
+
+  #trail-detail {
+    width: 30%;
+  }
+
+  #trail-detail img {
+    width: 30%;
+  }
+
+  .detail-button {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  #detail-container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
   }
 }

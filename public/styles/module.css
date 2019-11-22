@@ -141,7 +141,7 @@ img.trail-item{
 
 #detail-container {
   width: 100vw;
-  padding: 15px;
+  padding: 30px 0;
   background-color: #3c3c3c;
   color: antiquewhite;
   font-family: Staatliches, cursive;
@@ -160,6 +160,13 @@ img.trail-item{
   text-align: center;
   padding: 0 5%;
   font-size: 1.2em;
+  color:  antiquewhite;
+  border: 5px solid  #945D60;
+  border-radius: 10%;
+  background-color: #626E60;
+  font-family: 'Staatliches', cursive;
+  font-size: 1.3em;
+  line-height: 1.4em;
 }
 
 #trail-detail img {
@@ -180,6 +187,13 @@ img.trail-item{
   height: auto;
 }
 /* About Us Styling */
+.abt-main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .about-container {
   width: 90%;
   height: 320px;

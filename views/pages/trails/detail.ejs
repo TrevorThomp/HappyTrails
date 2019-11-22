@@ -12,7 +12,7 @@
         <p><%= result.summary %></p>
         <p>Difficulty: <%= result.difficulty %></p>
         <p><%= result.length %> miles</p>
-        <button class="detail-button"><a href="">Update Details</a></button>
+        <button class="detail-button btn-update"><a href="">Update Details</a></button>
         <form action="/trails/<%= result.id %>" method="post">
           <input type="hidden" name="_method" value="delete">
           <button class="detail-button">Delete Trail From Favorites</button>
