@@ -58,7 +58,7 @@
   #form-title {
     padding: 20px;
     margin-bottom: 50px;
-    /* margin-top: 50px; */
+    width: 50%;
   }
 
   /* Favorites Container */
@@ -112,5 +112,10 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
+  }
+
+  .search-form-inputs {
+    width: 35%;
+    margin: 20px;
   }
 }
