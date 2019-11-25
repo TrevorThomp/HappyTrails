@@ -13,7 +13,7 @@ Create an application that allows users to search local trails and save them for
 - Conor McCue
 - Trevor Thompson
 
-**Version**: 1.0.0 (Project Pitch)
+## Version: 1.8.0 
 
 ## Required Assets
 
@@ -161,4 +161,24 @@ Example:
 "conditionDetails": "",
 "conditionDate": "2019-08-10 16:37:58"
 }
+```
+## Database Schema
+
+```
+DROP TABLE IF EXISTS trail;
+
+CREATE TABLE trail (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  summary VARCHAR(255),
+  trail_id INT,
+  difficulty VARCHAR(255),
+  stars DECIMAL(3,1),
+  img_small VARCHAR(255),
+  latitude  DECIMAL (12,7),
+  longitude DECIMAL (12,7),
+  length DECIMAL(4,1),
+  conditionstatus TEXT,
+  conditiondetails TEXT
+);
 ```
