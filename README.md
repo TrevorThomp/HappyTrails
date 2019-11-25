@@ -46,11 +46,15 @@ NPM Install:
 - pg
 - express
 - methodOverride
+- cors
+- path
 
-## Attributions
+ENV Setup:
 
-Hamburger Menu:
-https://codepen.io/erikterwan/pen/grOZxx
+* PORT = ___
+* DATABASE_URL = ___
+* GEOCODE_API_KEY = ____
+* HIKING_PROJECT_API_KEY = ___
 
 ## API Sample Responses:
 ```
