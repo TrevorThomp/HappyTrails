@@ -5,6 +5,10 @@
     height: 95vh;
   }
 
+  header {
+    flex-wrap: initial;
+  }
+
   footer {
     padding-bottom: 20px;
   }
