@@ -1,6 +1,5 @@
 'use strict';
 
-
 const express = require('express');
 const trailRouter = express.Router();
 
@@ -10,14 +9,22 @@ trailRouter.put('/trails/:id', updateTrail);
 trailRouter.delete('/trails/:id', deleteTrail);
 trailRouter.get('/favorites', getTrails);
 
-// Redirects after saving selected trail to database
-function saveTrail(req, res) {
+/**
+ * Redirects client after saving trail to database
+ * @param {*} req 
+ * @param {*} res 
+ */
+function saveTrail(request, response) {
   let trailDetails = new Trail(JSON.parse(req.body.object));
   trailDetails.save()
-    .then(res.redirect('/favorites'));
+    .then(response.redirect('/favorites'));
 }
 
-// Render all saved trails from database to page
+/**
+ * Renders all saved trails from database
+ * @param {*} request 
+ * @param {*} response 
+ */
 function getTrails(request, response){
   let SQL = 'SELECT * FROM trail';
   return client.query(SQL)
@@ -25,7 +32,11 @@ function getTrails(request, response){
     .catch(err =>handleError(err,response));
 }
 
-// Opens selected trail in detail view
+/**
+ * Opens selected trail in detailed view
+ * @param {*} request 
+ * @param {*} response 
+ */
 function getOneTrail(request,response) {
   let SQL = 'SELECT * FROM trail WHERE id=$1';
   let values = [request.params.id];
@@ -35,7 +46,11 @@ function getOneTrail(request,response) {
     .catch(err => console.err(err))
 }
 
-// Updates Trail information in database
+/**
+ * Updated selected trail information in database
+ * @param {*} request 
+ * @param {*} response 
+ */
 function updateTrail(request,response){
   let { name, summary, difficulty, img_small, length} = request.body;
   let SQL = 'UPDATE trail SET name=$1, summary=$2, difficulty=$3, img_small=$4, length=$5 WHERE id=$6';
@@ -46,7 +61,11 @@ function updateTrail(request,response){
     .catch(err => console.error(err));
 }
 
-// Deletes selected trail from database
+/**
+ * Deletes selected trail from database
+ * @param {*} request 
+ * @param {*} response 
+ */
 function deleteTrail(request,response){
   let SQL = 'DELETE FROM trail WHERE id=$1';
   let value = [request.params.id];
@@ -56,7 +75,11 @@ function deleteTrail(request,response){
     .catch(err => handleError(err, response));
 }
 
-// Error Handler Function
+/**
+ * Error Handler
+ * @param {*} error 
+ * @param {*} response 
+ */
 function handleError(error,response) {
   response.render('error', {error: error})
 }
