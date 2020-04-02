@@ -28,7 +28,7 @@
 #nav-menu a{
   color: antiquewhite;
   font-family: 'Roboto', sans-serif;
-  font-size: 1em;
+  font-size: 1.2em;
   text-shadow: 0.06em 0.1em 0.1em hsla(34, 78%, 70%, 1);
 }
 
@@ -43,11 +43,11 @@
 .search-form-inputs{
   background-color: #3C3C3C;
   color: antiquewhite;
-  text-align: center;
+  /* text-align: center; */
   outline: none;
-  padding: 20px 0;
-  margin: 0 1%;
+  padding: 10px;
   font-size: 1em;
+  margin: 10px;
   font-weight: bold;
 }
 
@@ -62,33 +62,22 @@
 }
 
 #search-form{
-  width: 100%;
   display: flex;
-  /* flex-flow: row wrap; */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-#search-form-select{
-  width: 40%;
-  font-size: 0.9em;
-}
-
-#input-search{
-  width: 35%;
-}
-
-#input-number{
-  width: 11%;
-}
-
 #button-submit{
+  margin-top: 10px;
   font-size: 2em;
   color: antiquewhite;
+  transition: 0.3s ease-in-out;
 }
 
 #button-submit:hover {
   cursor: pointer;
+  transform: scale(1.1);
 }
 
 /* Footer */
@@ -185,6 +174,7 @@ img.trail-item{
 }
 /* About Us Styling */
 .abt-main-container {
+  flex: 1 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -289,7 +279,7 @@ img.trail-item{
 }
 
 .fa-github {
-  padding:20px 24px;
+  padding: 10px;
   -o-transition:.5s;
   -ms-transition:.5s;
   -moz-transition:.5s;
@@ -305,7 +295,7 @@ img.trail-item{
 }
 
 .fa-envelope {
-  padding:20px 24px;
+  padding: 10px;
   -o-transition:.5s;
   -ms-transition:.5s;
   -moz-transition:.5s;
@@ -321,7 +311,7 @@ img.trail-item{
 }
 
 .fa-linkedin {
-  padding:20px 24px;
+  padding: 10px;
   -o-transition:.5s;
   -ms-transition:.5s;
   -moz-transition:.5s;
