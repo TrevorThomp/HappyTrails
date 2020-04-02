@@ -17,4 +17,10 @@ function Trail(data) {
   this.conditionDetails = data.conditionDetails ? data.conditionDetails : 'No condition details';
 }
 
+Trail.prototype.save = function(){
+  const SQL = 'INSERT INTO trail(name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id';
+  let values = Object.values(this);
+  return client.query(SQL, values);
+}
+
 module.exports = Trail;
