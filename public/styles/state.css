@@ -58,7 +58,6 @@
 
 
   /* Index Page */
-
   #form-title {
     padding: 20px;
     width: 40%;
@@ -68,7 +67,6 @@
   }
 
   /* Favorites Container */
-
   #favorites-container {
     display: flex;
     justify-content: center;
@@ -100,7 +98,6 @@
   }
 
   /* Detail Display */
-
   #trail-detail {
     width: 30%;
   }

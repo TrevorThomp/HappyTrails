@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('./partials/head') %>
-<body id="index-body">
+<body>
   <%- include('./partials/header') %>
 <main id="index-main">
-  <h1 id="form-title">We'll Get You There</h1>
   <section id="searchCont">
 
       <form id="search-form" action="/location">
         <input type="text" name="data" id="input-search" placeholder="Enter a location here" required="true" autofocus="true" class="search-form-inputs">
-        <input type="number" name="maxMiles" id="input-number" required="true" max="3000" placeholder="Miles" class="search-form-inputs">
+        <input type="number" name="maxMiles" id="input-number" required="true" max="3000" placeholder="Miles Radius" class="search-form-inputs">
         <button type="submit" id="button-submit">Explore!</button>
       </form>
 </main>
