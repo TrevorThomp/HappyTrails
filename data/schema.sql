@@ -24,15 +24,3 @@ INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitu
     'Needs Summary',7073493,'Easy',
 5,'https://cdn-files.apstatic.com/hike/7056730_sqsmall_1555945367.jpg',44.0221,-121.3633,14.5,'All Clear',
 'Mostly Dry, Some Mud');
-
-INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES (
-'Tiddlywinks Lower',
-    'An easy climb connecting to other trails.',7035581,'Intermediate',
-5,'https://cdn-files.apstatic.com/hike/7035792_sqsmall_1555020892.jpg',43.9783,-121.4684,4.1,'Unknown',
-'null');
-
-INSERT INTO TRAIL (name, summary, trail_id, difficulty, stars, img_small, latitude, longitude,length, conditionstatus, conditiondetails) VALUES ('Pilot Butte Trail',
-    'A steep, short climb with great views.',7005256,'Intermediate',
-3.9,'https://cdn-files.apstatic.com/hike/7004532_sqsmall_1554245535.jpg',44.0579,-121.2786,0.9,'Unknown',
-'null');
-
