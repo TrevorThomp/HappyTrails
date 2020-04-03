@@ -11,18 +11,18 @@ Happy Trails is a web application that allows a user to look up hikes in a speci
 
 ## General Info
 
+On the home page you will be given a form to input a specified location along with the radius you want hikes to be displayed within. Once you submit the form, you will be redirected to a page that lists the hikes within that radius along with a map that displays where the hiking trails are located. 
 
+You are then able to select and view details regarding specific hiking trails and even add them to your favorites. Within your favorites, you are able to modify information regarding the trail and make specific notes for yourself that you are able to refer to in the future.
 
 ## Technologies
-- jQuery
-- EJS
-- Express
-- SuperAgent
-- pg
-- cors
-- dotenv
-- methodOverride
-- eslint
+- EJS version: 2.7.4
+- Express version: 4.17.1
+- SuperAgent version: 5.1.0
+- pg version: 7.13.0
+- Cors version: 2.8.5
+- Dotenv version: 8.2.0
+- MethodOverride version: 3.0.0
 
 ### API Library
 
@@ -63,6 +63,9 @@ CREATE TABLE trail (
   conditiondetails TEXT
 );
 ```
+
+## Live Demo
+Here is the live demo: https://hidden-journey-10074.herokuapp.com/
 
 ## API Sample Responses:
 ```
