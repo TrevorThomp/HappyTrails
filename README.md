@@ -1,29 +1,22 @@
-# Trail Journal
+# Happy Trails
 
-The web application solves this problem by linking information from the All Trails API by location to provide a list of trail options with related information such as hike difficulty and trail conditions. The user will be able to save hikes for later retrieval. An image of the trail will be displayed with an option to get further detailed information.
+Happy Trails is a web application that allows a user to look up hikes in a specified location and radius of that location. The user is then able to favorite certain hikes into their journal and make personalized notes about that hike.
 
-## Problem Domain
+## Table of Contents
+* [General Info](#general-info)
+* [Technologies](#technologies)
+* [Setup](#setup)
+* [Live Demo](#live-demo)
+* [API Sample Responses](#api-sample-responses)
+# [Database Schema]()
 
-Create an application that allows users to search local trails and save them for later personal use.
+## General Info
 
-## Collaborators
 
-- Natalie Alway
-- Mark Swearingen
-- Conor McCue
-- Trevor Thompson
 
-## Version: 1.8.0 
-
-## Required Assets
-
-### Libraries
-
+## Technologies
 - jQuery
 - EJS
-
-### NPM Modules
-
 - Express
 - SuperAgent
 - pg
@@ -32,29 +25,45 @@ Create an application that allows users to search local trails and save them for
 - methodOverride
 - eslint
 
-## API Library
+### API Library
 
 - Hiking Project API
 - Google Maps Geocode API
 
-## User Instructions
+## Setup
+To run this project locally, setup ENV dependencies and install with npm:
 
-NPM Install:
-
-- SuperAgent
-- dotenv
-- pg
-- express
-- methodOverride
-- cors
-- path
-
-ENV Setup:
-
+```
+$ cd HappyTrails
+$ npm install
+$ npm start
+```
+### ENV Setup
+```
 * PORT = ___
-* DATABASE_URL = ___
+* DATABASE_URL = "postgres://{YourUserName}:{YourPassword}@{YourHost}:5432/{YourDatabase}"
 * GEOCODE_API_KEY = ____
 * HIKING_PROJECT_API_KEY = ___
+```
+### Database Schema
+```
+DROP TABLE IF EXISTS trail;
+
+CREATE TABLE trail (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  summary VARCHAR(255),
+  trail_id INT,
+  difficulty VARCHAR(255),
+  stars DECIMAL(3,1),
+  img_small VARCHAR(255),
+  latitude  DECIMAL (12,7),
+  longitude DECIMAL (12,7),
+  length DECIMAL(4,1),
+  conditionstatus TEXT,
+  conditiondetails TEXT
+);
+```
 
 ## API Sample Responses:
 ```
@@ -166,23 +175,9 @@ Example:
 "conditionDate": "2019-08-10 16:37:58"
 }
 ```
-## Database Schema
 
-```
-DROP TABLE IF EXISTS trail;
-
-CREATE TABLE trail (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(255),
-  summary VARCHAR(255),
-  trail_id INT,
-  difficulty VARCHAR(255),
-  stars DECIMAL(3,1),
-  img_small VARCHAR(255),
-  latitude  DECIMAL (12,7),
-  longitude DECIMAL (12,7),
-  length DECIMAL(4,1),
-  conditionstatus TEXT,
-  conditiondetails TEXT
-);
-```
+## Collaborators
+- Trevor Thompson
+- Natalie Alway
+- Mark Swearingen
+- Conor McCue
