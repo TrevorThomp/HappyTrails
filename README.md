@@ -8,7 +8,6 @@ Happy Trails is a web application that allows a user to look up hikes in a speci
 * [Setup](#setup)
 * [Live Demo](#live-demo)
 * [API Sample Responses](#api-sample-responses)
-# [Database Schema]()
 
 ## General Info
 
