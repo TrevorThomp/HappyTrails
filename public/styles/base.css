@@ -10,15 +10,15 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
+  background-color: #3C3C3C;
 }
 
 header {
   background-color: #626E60;
-  display: flex;
-  justify-content: space-around;
+  /* display: flex;
+  justify-content: center;
   flex-direction: column;
-  align-items: center;
-  padding-bottom: 20px;
+  align-items: center; */
 }
 
 footer {
