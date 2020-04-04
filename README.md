@@ -2,6 +2,8 @@
 
 Happy Trails is a web application that allows a user to look up hikes in a specified location and radius of that location. The user is then able to favorite certain hikes into their journal and make personalized notes about that hike.
 
+<img src="./public/assets/home.png" width="600" height="500"/>
+
 ## Table of Contents
 * [General Info](#general-info)
 * [Technologies](#technologies)
