@@ -3,13 +3,16 @@
   font-size: 2.1em;
   font-family: 'Staatliches', cursive;
   color: antiquewhite;
-  padding-top: 5px;
+  padding: 10px 0;
+  margin-left: 20px;
 }
 
 #mountain-icon{
   background-color: antiquewhite;
   width: 15%;
   height: 40%;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
 #nav-bar{
@@ -18,11 +21,10 @@
 }
 
 #nav-menu{
-  width: 100%;
   display: flex;
-  flex-flow: row nowrap;
   justify-content: space-evenly;
-  padding: 20px;
+  align-items: center;
+  padding-bottom: 10px;
 }
 
 #nav-menu a{
@@ -41,9 +43,7 @@
 
 /* SEARCH FORM */
 .search-form-inputs{
-  background-color: #3C3C3C;
   color: antiquewhite;
-  /* text-align: center; */
   outline: none;
   padding: 10px;
   font-size: 1em;
@@ -52,20 +52,19 @@
 }
 
 #form-title{
-  font-size: 2em;
-  padding: 5% 0;
-  margin-bottom: 14%;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 20px;
   color: antiquewhite;
-  width: 100%;
-  background-color: rgb(51, 51, 51);
-  margin-top: 30px;
 }
 
 #search-form{
+  background-color: #6e6062;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 20px;
 }
 
 #button-submit{

@@ -5,17 +5,13 @@
     height: 95vh;
   }
 
-  header {
-    flex-wrap: initial;
-  }
-
   footer {
     padding-bottom: 20px;
   }
 
-  #index-main {
+  /* #index-main {
     height: 100%;
-  }
+  } */
 
   /* About Us Page */
   .abt-main-container {
@@ -37,34 +33,19 @@
   }
 
   /* Header */
-
-  header {
-    height: 10%;
-  }
-
   #mountain-icon {
-    width: 5%;
-    margin-left: 15px;
+    width: 125px;
+    height: 100px;
   }
 
   #titleHeader {
-    padding-top: 5px;
-    margin-left: 20px;
+    font-size: 2.5em;
   }
 
   #nav-menu a {
     font-size: 1.3em;
   }
 
-
-  /* Index Page */
-  #form-title {
-    padding: 20px;
-    width: 40%;
-    margin: 0 auto;
-    margin-top: 50px;
-    margin-bottom: 50px;
-  }
 
   /* Favorites Container */
   #favorites-container {
@@ -119,7 +100,6 @@
   }
 
   .search-form-inputs {
-    width: 35%;
     margin: 20px;
   }
 }
